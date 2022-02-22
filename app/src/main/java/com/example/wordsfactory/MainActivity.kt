@@ -2,10 +2,15 @@ package com.example.wordsfactory
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.wordsfactory.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setTheme(R.style.SplashTheme)
+        setContentView(binding.root)
     }
 }
