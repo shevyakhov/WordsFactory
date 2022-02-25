@@ -8,13 +8,15 @@ import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.SliderItemBinding
 
 class SliderAdapter : RecyclerView.Adapter<SliderAdapter.SliderHolder>() {
-    private var imageList = listOf<String>()
+    private var sliderList = listOf<SliderItem>()
 
     class SliderHolder(v: View) : RecyclerView.ViewHolder(v) {
         private val binding = SliderItemBinding.bind(v)
         val context = v.context
-        fun bind(it: String) = with(binding) {
-
+        fun bind(it: SliderItem) = with(binding) {
+            sliderMainText.text = context.getText(it.mainText)
+            sliderSubText.text = context.getText(it.subText)
+            sliderImage.setImageResource(it.image)
         }
     }
 
@@ -24,13 +26,14 @@ class SliderAdapter : RecyclerView.Adapter<SliderAdapter.SliderHolder>() {
     }
 
     override fun onBindViewHolder(holder: SliderHolder, position: Int) {
-        holder.bind(imageList[position])
+        holder.bind(sliderList[position])
     }
 
     override fun getItemCount(): Int {
-        return imageList.size
+        return sliderList.size
     }
 
-
-
+    fun initList(list: List<SliderItem>) {
+        sliderList = list
+    }
 }
