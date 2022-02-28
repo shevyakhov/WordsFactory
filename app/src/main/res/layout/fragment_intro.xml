@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".fragment.IntroFragment">
 
-    <Button
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/skipBtn"
+        style="@style/subText"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_margin="15dp" />
+        android:layout_margin="15dp"
+        android:background="@color/transparentWhite"
+        android:text="@string/skip"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="11sp" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
@@ -23,20 +30,24 @@
 
     <me.relex.circleindicator.CircleIndicator3
         android:id="@+id/indicator"
-        app:ci_drawable="@drawable/current_dot"
-        app:ci_drawable_unselected="@drawable/unselected"
         android:layout_width="55dp"
-        app:ci_animator="@animator/dot_animator"
         android:layout_height="10dp"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="120dp"
-        />
+        app:ci_animator="@animator/dot_animator"
+        app:ci_drawable="@drawable/current_dot"
+        app:ci_drawable_unselected="@drawable/unselected" />
+
     <Button
+        android:id="@+id/botButton"
+        style="@style/mainBtn"
         android:layout_width="311dp"
         android:layout_height="56dp"
         android:layout_gravity="center|bottom"
-        android:layout_margin="15dp" />
-
+        android:layout_margin="15dp"
+        android:background="@drawable/main_btn"
+        android:text="@string/next"
+        app:backgroundTint="@null" />
 
 
 </FrameLayout>

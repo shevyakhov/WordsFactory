@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.example.wordsfactory.R
 import com.example.wordsfactory.adapters.SliderAdapter
 import com.example.wordsfactory.adapters.introList
 import com.example.wordsfactory.databinding.FragmentIntroBinding
@@ -37,9 +39,25 @@ class IntroFragment : Fragment() {
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                /*TODO indicator*/
+                if (position == sliderAdapter.itemCount - 1) {
+                    binding.botButton.text = getText(R.string.LetsStart)
+                } else
+                    binding.botButton.text = getText(R.string.next)
             }
         })
+        binding.skipBtn.setOnClickListener {
+            registrationFragment()
+        }
+        binding.botButton.setOnClickListener {
+            if (binding.viewPager.currentItem == sliderAdapter.itemCount - 1) {
+                registrationFragment()
+            } else
+                binding.viewPager.currentItem++
+        }
+    }
+
+    private fun registrationFragment() {
+        /* todo */
     }
 
 
