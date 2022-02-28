@@ -32,6 +32,8 @@ class IntroFragment : Fragment() {
     private fun initBinding() {
         binding.viewPager.adapter = sliderAdapter
         sliderAdapter.initList(introList)
+        val indicator = binding.indicator
+        indicator.setViewPager(binding.viewPager)
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

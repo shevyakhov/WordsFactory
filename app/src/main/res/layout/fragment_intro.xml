@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".fragment.IntroFragment">
 
@@ -20,6 +21,16 @@
 
     </androidx.viewpager2.widget.ViewPager2>
 
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/indicator"
+        app:ci_drawable="@drawable/current_dot"
+        app:ci_drawable_unselected="@drawable/unselected"
+        android:layout_width="55dp"
+        app:ci_animator="@animator/dot_animator"
+        android:layout_height="10dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="120dp"
+        />
     <Button
         android:layout_width="311dp"
         android:layout_height="56dp"
