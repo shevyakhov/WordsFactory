@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">WordsFactory</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="introFirstMain">Learn anytime and anywhere</string>
+    <string name="introSecondMain">Find a course for you</string>
+    <string name="introThirdMain">Improve your skills</string>
+    <string name="introSub">Quarantine is the perfect time to spend your day learning something new, from anywhere!</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="LetsStart">Let’s Start</string>
+    <string name="SignUp">Sign up</string>
+    <string name="AddToDictionary">Add to Dictionary</string>
+
+
 </resources>

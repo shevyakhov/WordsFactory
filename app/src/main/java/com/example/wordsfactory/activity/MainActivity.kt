@@ -19,6 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun startMainFragment() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragmentHolder, IntroFragment.newInstance())
+            .add(R.id.fragmentHolder, IntroFragment.newInstance()).commit()
     }
 }

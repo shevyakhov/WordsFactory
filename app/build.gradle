@@ -51,4 +51,8 @@ dependencies {
 
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
+
+    /*circle indicator*/
+    implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'me.relex:circleindicator:2.1.6'
 }
