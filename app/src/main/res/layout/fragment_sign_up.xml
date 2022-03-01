@@ -35,12 +35,14 @@
         android:text="@string/createAcc" />
 
     <com.google.android.material.textfield.TextInputLayout
+
         android:id="@+id/nameInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/botText"
         android:layout_margin="5dp"
         android:hint="@string/name"
+        android:textColorHint="@color/inkGrey"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp">
 
@@ -50,7 +52,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/edit_text"
             android:ems="15"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/inkGrey" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -60,6 +63,7 @@
         android:layout_below="@id/nameInputLayout"
         android:layout_margin="5dp"
         android:hint="@string/email"
+        android:textColorHint="@color/inkGrey"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp">
 
@@ -69,17 +73,21 @@
             android:layout_height="match_parent"
             android:background="@drawable/edit_text"
             android:ems="15"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/inkGrey" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout"
+        style="@style/subText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/emailInputLayout"
         android:layout_margin="5dp"
         android:hint="@string/password"
+        android:textColorHint="@color/inkGrey"
         app:boxStrokeWidth="0dp"
+
         app:boxStrokeWidthFocused="0dp"
         app:passwordToggleEnabled="true">
 
@@ -89,7 +97,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/edit_text"
             android:ems="15"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/inkGrey" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
