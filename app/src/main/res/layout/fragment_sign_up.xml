@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustResize"
+    android:background="@color/white"
+    tools:context=".fragment.SignUpFragment">
+
+    <ImageView
+        android:id="@+id/kidPic"
+        android:layout_width="340dp"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/kid_standing" />
+
+    <TextView
+        android:id="@+id/topText"
+        style="@style/mainText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/kidPic"
+        android:layout_margin="20dp"
+        android:text="@string/SignUp" />
+
+    <TextView
+        android:id="@+id/botText"
+        style="@style/subText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topText"
+        android:layout_margin="5dp"
+        android:text="@string/createAcc" />
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/nameInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botText"
+        android:layout_margin="5dp"
+        android:hint="@string/name"
+        android:textColorHint="@color/inkGrey"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_text"
+            android:ems="15"
+            android:inputType="text"
+            android:textColor="@color/inkGrey" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameInputLayout"
+        android:layout_margin="5dp"
+        android:hint="@string/email"
+        android:textColorHint="@color/inkGrey"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_text"
+            android:ems="15"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/inkGrey" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordInputLayout"
+        style="@style/subText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailInputLayout"
+        android:layout_margin="5dp"
+        android:hint="@string/password"
+        android:textColorHint="@color/inkGrey"
+        app:boxStrokeWidth="0dp"
+
+        app:boxStrokeWidthFocused="0dp"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_text"
+            android:ems="15"
+            android:inputType="textPassword"
+            android:textColor="@color/inkGrey" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/botButton"
+        style="@style/mainBtn"
+        android:layout_width="311dp"
+        android:layout_height="56dp"
+        android:layout_below="@id/passwordInputLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:background="@drawable/main_btn"
+        android:text="@string/next"
+        app:backgroundTint="@null" />
+
+</RelativeLayout>

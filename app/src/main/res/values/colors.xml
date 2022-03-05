@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="inkGrey">#78746D</color>
+    <color name="inkGreyTrans">#8078746D</color>
     <color name="inkDark">#3C3A36</color>
     <color name="primaryOrange">#E3562A</color>
     <color name="transparentWhite">#00FFFFFF</color>
