@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:layout_margin="20dp"
+    android:background="@drawable/edit_text"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/explaining"
+        style="@style/subText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:maxLines="3"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        tools:text="The practice or skill of preparing food by combining, mixing, and heating ingredients." />
+
+    <TextView
+        android:id="@+id/example"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/explaining"
+        style="@style/subText"
+        android:layout_margin="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/example"
+        android:textColor="@color/teal_700" />
+
+    <TextView
+        android:id="@+id/exampleText"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        style="@style/subText"
+        android:layout_below="@id/explaining"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@id/example"
+        tools:text="he developed an interest in cooking."
+       />
+
+</RelativeLayout>

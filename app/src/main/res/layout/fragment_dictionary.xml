@@ -1,13 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".DictionaryFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/AddToDictionary" />
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/meaningGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="partOfSpeech,listener,wordName,transcription,meaningHolder,partOfSpeechAnswer,meanings,botButton" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/blankBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:focusable="false"
+        android:src="@drawable/pls_search"
+        tools:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/wordName"
+        style="@style/mainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+
+        android:layout_marginBottom="10dp"
+        tools:text="Cooking" />
+
+    <TextView
+        android:id="@+id/transcription"
+        style="@style/dictionaryOrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toEndOf="@id/wordName"
+        tools:text="[ˈkʊkɪŋ]" />
+
+    <ImageView
+        android:id="@+id/listener"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toEndOf="@id/transcription"
+        android:src="@drawable/sound_ic" />
+
+    <TextView
+        android:id="@+id/partOfSpeech"
+        style="@style/mainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wordName"
+        android:layout_margin="20dp"
+        android:text="@string/part_of_speech" />
+
+    <TextView
+
+        android:id="@+id/partOfSpeechAnswer"
+        style="@style/subText"
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wordName"
+        android:layout_toEndOf="@id/partOfSpeech"
+        tools:text="Noun" />
+
+    <TextView
+        android:id="@+id/meanings"
+        style="@style/mainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/partOfSpeech"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/meanings" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meaningHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        tools:visibility="gone" />
+
+    <Button
+        android:id="@+id/botButton"
+        style="@style/mainBtn"
+        android:layout_width="311dp"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/main_btn"
+        android:text="@string/next"
+        app:backgroundTint="@null" />
+
+
+</RelativeLayout>
