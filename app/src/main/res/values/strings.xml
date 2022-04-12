@@ -15,8 +15,11 @@
     <string name="name">Name</string>
     <string name="warning">Blank space warning</string>
     <string name="pleaseEnter">Please Enter these fields:</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="meanings">Meanings:</string>
+    <string name="part_of_speech">Part of Speech:</string>
+    <string name="example">Example:</string>
+    <string name="baseUrl">https://api.dictionaryapi.dev/api/v2/entries/en/</string>
 
 
 </resources>

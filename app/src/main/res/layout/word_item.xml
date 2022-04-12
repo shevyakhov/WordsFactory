@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:layout_margin="3dp"
+    android:background="@drawable/edit_text"
+    android:orientation="horizontal">
+    <!--todo fix layout-->
+    <TextView
+        android:id="@+id/explaining"
+        style="@style/subText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:maxEms="70"
+        android:maxLines="3"
+        android:textAlignment="viewStart"
+        tools:text="The practice or skill of preparing food by combining, mixing, and heating ingredients." />
+
+    <TextView
+        android:id="@+id/example"
+        style="@style/subText"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/explaining"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/example"
+        android:textAlignment="viewStart"
+        android:textColor="@color/teal_700" />
+
+    <TextView
+        android:id="@+id/exampleText"
+        style="@style/subText"
+        android:ellipsize="end"
+        android:maxEms="50"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/explaining"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@id/example"
+        android:maxLines="1"
+        android:textAlignment="viewStart"
+        tools:text="he developed an interest in cooking." />
+
+</RelativeLayout>

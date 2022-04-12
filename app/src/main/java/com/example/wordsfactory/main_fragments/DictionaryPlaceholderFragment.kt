@@ -1,4 +1,4 @@
-package com.example.wordsfactory.fragment
+package com.example.wordsfactory.main_fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentDictionaryPlaceholderBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 
 
 class DictionaryPlaceholderFragment : Fragment() {
@@ -20,7 +22,7 @@ class DictionaryPlaceholderFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDictionaryPlaceholderBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -30,6 +32,13 @@ class DictionaryPlaceholderFragment : Fragment() {
 
         val bottomNavigationView =
             view.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val radius = resources.getDimension(R.dimen.radius_small)
+        val bottomNavigationViewBackground = bottomNavigationView.background as MaterialShapeDrawable
+        bottomNavigationViewBackground.shapeAppearanceModel =
+            bottomNavigationViewBackground.shapeAppearanceModel.toBuilder()
+                .setTopRightCorner(CornerFamily.ROUNDED, radius)
+                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                .build()
         val navController =
             (childFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController
         bottomNavigationView.setupWithNavController(navController)

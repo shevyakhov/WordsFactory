@@ -1,60 +1,150 @@
 package com.example.wordsfactory
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.wordsfactory.R
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.wordsfactory.adapters.WordAdapter
+import com.example.wordsfactory.adapters.WordItem
+import com.example.wordsfactory.databinding.FragmentDictionaryBinding
+import com.example.wordsfactory.dictionary_logic.AppViewModel
+import com.example.wordsfactory.dictionary_logic.Injection
+import com.example.wordsfactory.dictionary_logic.database.AppDatabase
+import com.example.wordsfactory.dictionary_logic.database.WordEntity
+import com.example.wordsfactory.dictionary_logic.database.WordResponse
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DictionaryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DictionaryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    var flag: Boolean = true
+    private var currentWord = WordEntity(word = "", transcription = "", sound = "", partOfSpeech = "", meanings = listOf())
+    private val adapter = WordAdapter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            DictionaryFragment().apply {
+                arguments = Bundle().apply {
+
+                }
+            }
+    }
+
+    private lateinit var vm: AppViewModel
+    private lateinit var mDatabase: AppDatabase
+    private lateinit var binding: FragmentDictionaryBinding
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        vm = ViewModelProvider(this, Injection.provideFactory(requireContext()))
+            .get(AppViewModel::class.java)
+        doBinding()
+        checkObservable()
+    }
+
+    private fun doBinding() {
+
+        binding.meaningHolder.layoutManager =
+            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        binding.meaningHolder.adapter = adapter
+
+        hideAll()
+        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                if (p0 != null) {
+                    vm.searchNet(p0)
+                    if (flag) {
+                        binding.blankBack.visibility = View.INVISIBLE
+                        showAll()
+                        flag = false
+                    }
+
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+
+        })
+        binding.botButton.setOnClickListener {
+           val i = vm.checkDbForWord(currentWord.word)
+           /* vm.saveToDb(currentWord)*/
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dictionary, container, false)
+    ): View {
+        binding = FragmentDictionaryBinding.inflate(layoutInflater)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DictionaryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DictionaryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun hideAll() {
+        with(binding) {
+            partOfSpeech.visibility = View.INVISIBLE
+            listener.visibility = View.INVISIBLE
+            wordName.visibility = View.INVISIBLE
+            transcription.visibility = View.INVISIBLE
+            meaningHolder.visibility = View.INVISIBLE
+            partOfSpeechAnswer.visibility = View.INVISIBLE
+            meanings.visibility = View.INVISIBLE
+            botButton.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun showAll() {
+        with(binding) {
+            partOfSpeech.visibility = View.VISIBLE
+            listener.visibility = View.VISIBLE
+            wordName.visibility = View.VISIBLE
+            transcription.visibility = View.VISIBLE
+            meaningHolder.visibility = View.VISIBLE
+            partOfSpeechAnswer.visibility = View.VISIBLE
+            meanings.visibility = View.VISIBLE
+            botButton.visibility = View.VISIBLE
+        }
+    }
+
+
+    private fun checkObservable() {
+        vm.observable.subscribe {
+            bindResponse(it)
+        }
+    }
+
+    private fun bindResponse(list: List<WordResponse>) {
+        with(binding) {
+            listener /* todo sound*/
+
+            wordName.text = list[0].word
+            transcription.text = list[0].phonetic
+            partOfSpeechAnswer.text = list[0].meanings[0].partOfSpeech
+            var listing = mutableListOf<WordItem>()
+            for (i in list[0].meanings) {
+                Log.e("def", "${i.definitions[0].definition} - ${i.definitions[0].example}")
+                val word = WordItem(
+                    i.definitions[0].definition, i.definitions[0].example
+                )
+                listing.add(
+                    word
+                )
+                adapter.initList(listing)
+
+                currentWord.meanings = listing
+                currentWord.sound = list[0].phonetics[0].audio
+                currentWord.word = list[0].word
+                currentWord.transcription = list[0].phonetic
+                currentWord.partOfSpeech = list[0].meanings[0].partOfSpeech
+
+
             }
+        }
     }
 }
