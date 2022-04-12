@@ -19,6 +19,7 @@
     <string name="meanings">Meanings:</string>
     <string name="part_of_speech">Part of Speech:</string>
     <string name="example">Example:</string>
+    <string name="baseUrl">https://api.dictionaryapi.dev/api/v2/entries/en/</string>
 
 
 </resources>

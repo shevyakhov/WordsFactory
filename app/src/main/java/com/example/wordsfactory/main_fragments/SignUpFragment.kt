@@ -1,4 +1,4 @@
-package com.example.wordsfactory.fragment
+package com.example.wordsfactory.main_fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -21,7 +21,7 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSignUpBinding.inflate(layoutInflater)
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         return binding.root
     }
 
@@ -32,7 +32,9 @@ class SignUpFragment : Fragment() {
 
     private fun initBinding() {
         binding.botButton.setOnClickListener {
-            with(binding) {
+            startDictionaryFragment()
+            //todo remove
+            /*with(binding) {
 
                 if (editName.text?.isNotEmpty() == true && editEmail.text?.isNotEmpty() == true && editPassword.text?.isNotEmpty() == true) {
                     startDictionaryFragment()
@@ -44,7 +46,7 @@ class SignUpFragment : Fragment() {
                         childFragmentManager, ""
                     )
                 }
-            }
+            }*/
         }
     }
 
@@ -69,7 +71,7 @@ class SignUpFragment : Fragment() {
         val inputManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(
-            requireActivity().currentFocus!!.windowToken,
+            requireActivity().currentFocus?.windowToken,
             InputMethodManager.HIDE_NOT_ALWAYS
         )
     }
