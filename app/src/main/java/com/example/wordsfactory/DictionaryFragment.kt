@@ -60,7 +60,8 @@ class DictionaryFragment : Fragment() {
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (p0 != null) {
-                    val i = vm.checkDbForWord(currentWord.word)
+                    val i = vm.checkDbForWord(p0)
+                    Log.e("db", i.toString())
                     if (i == null)
                         vm.searchNet(p0)
                     else bindResponse(i)
@@ -76,9 +77,10 @@ class DictionaryFragment : Fragment() {
         })
         binding.botButton.setOnClickListener {
             val i = vm.checkDbForWord(currentWord.word)
-            if (i != null)
+            if (i == null) {
                 vm.saveToDb(currentWord)
-            else Toast.makeText(context, getString(R.string.wordIsAlready), Toast.LENGTH_SHORT)
+                Toast.makeText(context, getString(R.string.wordIsSaved), Toast.LENGTH_SHORT)
+            } else Toast.makeText(context, getString(R.string.wordIsAlready), Toast.LENGTH_SHORT)
                 .show()
         }
     }
@@ -162,7 +164,7 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun setPhonetic(word: WordResponse): String {
-        return word.phonetic ?: ""
+        return word.phonetic ?: "" // don't fix - android studio is wrong
     }
 
     private fun setAudio(response: WordResponse): String {
@@ -174,6 +176,7 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun bindResponse(word: WordEntity) {
+        showAllViews()
         with(binding) {
             listener /* todo sound*/
             wordName.text = word.word

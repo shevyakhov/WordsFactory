@@ -22,6 +22,7 @@
     <string name="example">Example:</string>
     <string name="baseUrl">https://api.dictionaryapi.dev/api/v2/entries/en/</string>
     <string name="wordIsAlready">This word is already saved</string>
+    <string name="wordIsSaved">Saved</string>
     <string name="nameAdd">"Name "</string>
     <string name="emailAdd">"Email "</string>
     <string name="passAdd">Password</string>
