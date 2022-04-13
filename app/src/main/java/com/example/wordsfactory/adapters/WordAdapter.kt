@@ -15,10 +15,10 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.SliderHolder>() {
         val context = v.context
         fun bind(it: WordItem) = with(binding) {
             explaining.text = it.definition
-            if (it.example != null) {
+            if (it.example != null && it.example != "null" ) {
                 exampleText.text = it.example
             }else
-                exampleText.text = ""
+                exampleText.text = context.getString(R.string.noExample)
         }
     }
 

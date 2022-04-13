@@ -7,11 +7,13 @@
     <string name="next">Next</string>
     <string name="skip">Skip</string>
     <string name="error">Error</string>
+    <string name="noSound">No sound</string>
     <string name="LetsStart">Let’s Start</string>
     <string name="SignUp">Sign up</string>
     <string name="AddToDictionary">Add to Dictionary</string>
     <string name="createAcc">Create your account</string>
     <string name="password">Password</string>
+    <string name="none"></string>
     <string name="email">E-mail</string>
     <string name="name">Name</string>
     <string name="warning">Blank space warning</string>
@@ -27,6 +29,7 @@
     <string name="emailAdd">"Email "</string>
     <string name="passAdd">Password</string>
     <string name="fakeWord">No such word in dictionary</string>
+    <string name="noExample">no example</string>
 
 
 </resources>
