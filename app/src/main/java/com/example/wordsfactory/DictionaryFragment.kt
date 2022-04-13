@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,14 +16,19 @@ import com.example.wordsfactory.adapters.WordItem
 import com.example.wordsfactory.databinding.FragmentDictionaryBinding
 import com.example.wordsfactory.dictionary_logic.AppViewModel
 import com.example.wordsfactory.dictionary_logic.Injection
-import com.example.wordsfactory.dictionary_logic.database.AppDatabase
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.database.WordResponse
 
 
 class DictionaryFragment : Fragment() {
     var flag: Boolean = true
-    private var currentWord = WordEntity(word = "", transcription = "", sound = "", partOfSpeech = "", meanings = listOf())
+    private var currentWord = WordEntity(
+        word = "",
+        transcription = "",
+        sound = "",
+        partOfSpeech = "",
+        meanings = listOf()
+    )
     private val adapter = WordAdapter()
 
     companion object {
@@ -36,7 +42,6 @@ class DictionaryFragment : Fragment() {
     }
 
     private lateinit var vm: AppViewModel
-    private lateinit var mDatabase: AppDatabase
     private lateinit var binding: FragmentDictionaryBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,21 +52,18 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun doBinding() {
-
         binding.meaningHolder.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.meaningHolder.adapter = adapter
 
-        hideAll()
+        hideAllViews()
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (p0 != null) {
-                    vm.searchNet(p0)
-                    if (flag) {
-                        binding.blankBack.visibility = View.INVISIBLE
-                        showAll()
-                        flag = false
-                    }
+                    val i = vm.checkDbForWord(currentWord.word)
+                    if (i == null)
+                        vm.searchNet(p0)
+                    else bindResponse(i)
 
                 }
                 return false
@@ -73,8 +75,11 @@ class DictionaryFragment : Fragment() {
 
         })
         binding.botButton.setOnClickListener {
-           val i = vm.checkDbForWord(currentWord.word)
-           /* vm.saveToDb(currentWord)*/
+            val i = vm.checkDbForWord(currentWord.word)
+            if (i != null)
+                vm.saveToDb(currentWord)
+            else Toast.makeText(context, getString(R.string.wordIsAlready), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -86,7 +91,8 @@ class DictionaryFragment : Fragment() {
         return binding.root
     }
 
-    private fun hideAll() {
+    private fun hideAllViews() {
+        binding.blankBack.visibility = View.VISIBLE
         with(binding) {
             partOfSpeech.visibility = View.INVISIBLE
             listener.visibility = View.INVISIBLE
@@ -99,7 +105,8 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-    private fun showAll() {
+    private fun showAllViews() {
+        binding.blankBack.visibility = View.INVISIBLE
         with(binding) {
             partOfSpeech.visibility = View.VISIBLE
             listener.visibility = View.VISIBLE
@@ -115,36 +122,86 @@ class DictionaryFragment : Fragment() {
 
     private fun checkObservable() {
         vm.observable.subscribe {
-            bindResponse(it)
-        }
-    }
-
-    private fun bindResponse(list: List<WordResponse>) {
-        with(binding) {
-            listener /* todo sound*/
-
-            wordName.text = list[0].word
-            transcription.text = list[0].phonetic
-            partOfSpeechAnswer.text = list[0].meanings[0].partOfSpeech
-            var listing = mutableListOf<WordItem>()
-            for (i in list[0].meanings) {
-                Log.e("def", "${i.definitions[0].definition} - ${i.definitions[0].example}")
-                val word = WordItem(
-                    i.definitions[0].definition, i.definitions[0].example
-                )
-                listing.add(
-                    word
-                )
-                adapter.initList(listing)
-
-                currentWord.meanings = listing
-                currentWord.sound = list[0].phonetics[0].audio
-                currentWord.word = list[0].word
-                currentWord.transcription = list[0].phonetic
-                currentWord.partOfSpeech = list[0].meanings[0].partOfSpeech
-
-
+            if (it.isEmpty()) {
+                Toast.makeText(context, getString(R.string.fakeWord), Toast.LENGTH_SHORT).show()
+            } else {
+                try {
+                    bindResponse(it.first())
+                    if (flag) {
+                        showAllViews()
+                        flag = false
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
+
+
+    private fun bindResponse(response: WordResponse) {
+
+        Log.e("s", response.toString())
+
+        val word = WordEntity(
+            word = response.word,
+            meanings = getDefinitions(response),
+            sound = setAudio(response),
+            transcription = setPhonetic(response),
+            partOfSpeech = response.meanings[0].partOfSpeech
+        )
+        Log.e("word", word.toString())
+        with(binding) {
+            listener /* todo sound*/
+            wordName.text = word.word
+            transcription.text = word.transcription
+            partOfSpeechAnswer.text = word.partOfSpeech
+            adapter.initList(word.meanings)
+        }
+        setCurrentWord(word)
+    }
+
+    private fun setPhonetic(word: WordResponse): String {
+        return word.phonetic ?: ""
+    }
+
+    private fun setAudio(response: WordResponse): String {
+        return if (response.phonetics.isNotEmpty()) {
+            response.phonetics[0].audio
+        } else {
+            ""
+        }
+    }
+
+    private fun bindResponse(word: WordEntity) {
+        with(binding) {
+            listener /* todo sound*/
+            wordName.text = word.word
+            transcription.text = word.transcription
+            partOfSpeechAnswer.text = word.partOfSpeech
+            adapter.initList(word.meanings)
+        }
+        setCurrentWord(word)
+    }
+
+    private fun setCurrentWord(word: WordEntity) {
+        currentWord.meanings = word.meanings
+        currentWord.sound = word.sound
+        currentWord.word = word.word
+        currentWord.transcription = word.transcription
+        currentWord.partOfSpeech = word.partOfSpeech
+    }
+}
+
+private fun getDefinitions(response: WordResponse): List<WordItem> {
+    val listing = mutableListOf<WordItem>()
+    for (i in response.meanings) {
+        val word = WordItem(
+            i.definitions[0].definition, i.definitions[0].example
+        )
+        listing.add(
+            word
+        )
+    }
+    return listing
 }

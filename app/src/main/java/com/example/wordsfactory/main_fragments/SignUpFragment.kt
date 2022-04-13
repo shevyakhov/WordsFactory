@@ -32,9 +32,7 @@ class SignUpFragment : Fragment() {
 
     private fun initBinding() {
         binding.botButton.setOnClickListener {
-            startDictionaryFragment()
-            //todo remove
-            /*with(binding) {
+            with(binding) {
 
                 if (editName.text?.isNotEmpty() == true && editEmail.text?.isNotEmpty() == true && editPassword.text?.isNotEmpty() == true) {
                     startDictionaryFragment()
@@ -46,28 +44,29 @@ class SignUpFragment : Fragment() {
                         childFragmentManager, ""
                     )
                 }
-            }*/
+            }
         }
     }
 
     private fun findEmptyFields(): String {
-        var fields = getString(R.string.pleaseEnter) +"\n"
+        var fields = getString(R.string.pleaseEnter) + "\n"
         if (binding.editName.text?.isEmpty() == true)
-            fields += "Name "
+            fields += getString(R.string.nameAdd)
         if (binding.editEmail.text?.isEmpty() == true)
-            fields += "Email "
+            fields += getString(R.string.emailAdd)
         if (binding.editPassword.text?.isEmpty() == true)
-            fields += "Password"
+            fields += getString(R.string.passAdd)
         return fields
     }
 
     private fun startDictionaryFragment() {
-       hideKeyboard()
+        hideKeyboard()
 
         parentFragmentManager.beginTransaction()
             .add(R.id.fragmentHolder, DictionaryPlaceholderFragment.newInstance()).commit()
     }
-    private fun hideKeyboard(){
+
+    private fun hideKeyboard() {
         val inputManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(
@@ -75,6 +74,7 @@ class SignUpFragment : Fragment() {
             InputMethodManager.HIDE_NOT_ALWAYS
         )
     }
+
     companion object {
         @JvmStatic
         fun newInstance() = SignUpFragment().apply {

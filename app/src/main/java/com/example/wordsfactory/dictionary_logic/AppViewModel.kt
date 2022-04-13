@@ -38,11 +38,8 @@ class AppViewModel(private val repository: AppRepository) : ViewModel() {
         repository.saveToDb(item)
     }
 
-    fun checkDbForWord(item: String): WordEntity {
-        /*todo NULL exception*/
-        val item = repository.searchDb(item)
-        Log.e("!", item.toString())
-        return item
+    fun checkDbForWord(item: String): WordEntity? {
+        return repository.searchDb(item)
     }
 }
 

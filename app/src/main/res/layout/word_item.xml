@@ -6,7 +6,6 @@
     android:layout_margin="3dp"
     android:background="@drawable/edit_text"
     android:orientation="horizontal">
-    <!--todo fix layout-->
     <TextView
         android:id="@+id/explaining"
         style="@style/subText"

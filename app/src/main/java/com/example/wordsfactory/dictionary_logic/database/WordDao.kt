@@ -10,7 +10,8 @@ interface WordDao {
     @Query("SELECT * FROM WordEntity")
     fun getAll(): List<WordEntity>
     @Query("SELECT * FROM WordEntity WHERE word = :word")
-    fun findById(word:String): WordEntity
+    fun findById(word:String): WordEntity?
+
     @Insert
     fun insert( item: WordEntity)
     @Delete
