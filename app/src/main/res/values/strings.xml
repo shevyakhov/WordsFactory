@@ -30,6 +30,9 @@
     <string name="passAdd">Password</string>
     <string name="fakeWord">No such word in dictionary</string>
     <string name="noExample">no example</string>
+    <string name="video">Video</string>
+    <string name="training">Training</string>
+    <string name="dictionary">Dictionary</string>
 
 
 </resources>

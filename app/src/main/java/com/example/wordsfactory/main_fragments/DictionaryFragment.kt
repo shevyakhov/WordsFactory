@@ -1,4 +1,4 @@
-package com.example.wordsfactory
+package com.example.wordsfactory.main_fragments
 
 import android.media.AudioAttributes
 import android.media.MediaPlayer
@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wordsfactory.R
 import com.example.wordsfactory.adapters.WordAdapter
 import com.example.wordsfactory.adapters.WordItem
 import com.example.wordsfactory.databinding.FragmentDictionaryBinding
@@ -24,8 +25,8 @@ import java.io.IOException
 
 
 class DictionaryFragment : Fragment() {
-
-    var flag: Boolean = true
+    /*todo onPause fragment???*/
+    private var flag: Boolean = true
     private val mediaPlayer = MediaPlayer()
     private var currentWord = WordEntity(
         word = "",
@@ -229,17 +230,26 @@ class DictionaryFragment : Fragment() {
             Log.e("e", e.message.toString())
         }
     }
-}
 
-private fun getDefinitions(response: WordResponse): List<WordItem> {
-    val listing = mutableListOf<WordItem>()
-    for (i in response.meanings) {
-        val word = WordItem(
-            i.definitions[0].definition, i.definitions[0].example
-        )
-        listing.add(
-            word
-        )
+    override fun onResume() {
+        super.onResume()
+        try {
+            bindResponse(currentWord)
+        } catch (e: Exception) {
+
+        }
     }
-    return listing
+
+    private fun getDefinitions(response: WordResponse): List<WordItem> {
+        val listing = mutableListOf<WordItem>()
+        for (i in response.meanings) {
+            val word = WordItem(
+                i.definitions[0].definition, i.definitions[0].example
+            )
+            listing.add(
+                word
+            )
+        }
+        return listing
+    }
 }
