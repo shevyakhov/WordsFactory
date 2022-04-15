@@ -27,6 +27,7 @@ import java.io.IOException
 class DictionaryFragment : Fragment() {
     private var flag: Boolean = true
     private val mediaPlayer = MediaPlayer()
+
     private var currentWord = WordEntity(
         word = "",
         transcription = "",
@@ -36,15 +37,6 @@ class DictionaryFragment : Fragment() {
     )
     private val adapter = WordAdapter()
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            DictionaryFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
-    }
 
     private lateinit var vm: AppViewModel
     private lateinit var binding: FragmentDictionaryBinding
@@ -60,39 +52,20 @@ class DictionaryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         vm = ViewModelProvider(this, Injection.provideFactory(requireContext()))
             .get(AppViewModel::class.java)
+
+        hideAllViews()
         initViews()
-        checkObservable()
+        subscribeToObservable()
     }
 
     private fun initViews() {
-        binding.meaningHolder.layoutManager =
-            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.meaningHolder.adapter = adapter
-        mediaPlayer.setAudioAttributes(
-            AudioAttributes
-                .Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .build()
-        )
-        hideAllViews()
-        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                if (p0 != null) {
-                    val i = vm.checkDbForWord(p0)
-                    Log.e("db", i.toString())
-                    if (i == null)
-                        vm.searchNet(p0)
-                    else bindResponse(i)
+        setRecyclerView()
+        setAudioPlayer()
+        setSearchBar()
+        setClickListeners()
+    }
 
-                }
-                return false
-            }
-
-            override fun onQueryTextChange(p0: String?): Boolean {
-                return false
-            }
-
-        })
+    private fun setClickListeners() {
         binding.botButton.setOnClickListener {
             val i = vm.checkDbForWord(currentWord.word)
             if (i == null) {
@@ -101,7 +74,6 @@ class DictionaryFragment : Fragment() {
             } else Toast.makeText(context, getString(R.string.wordIsAlready), Toast.LENGTH_SHORT)
                 .show()
         }
-
         binding.listener.setOnClickListener {
             if (currentWord.sound != getString(R.string.none)) {
                 try {
@@ -115,6 +87,42 @@ class DictionaryFragment : Fragment() {
                 Toast.makeText(context, getString(R.string.noSound), Toast.LENGTH_SHORT).show()
 
         }
+    }
+
+    /*search net if word is not saved in room db*/
+    private fun setSearchBar() {
+        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                if (p0 != null) {
+                    val i = vm.checkDbForWord(p0)
+                    if (i == null)
+                        vm.searchNet(p0)
+                    else bindResponse(i)
+
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+
+        })
+    }
+
+    private fun setRecyclerView() {
+        binding.meaningHolder.layoutManager =
+            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        binding.meaningHolder.adapter = adapter
+    }
+
+    private fun setAudioPlayer() {
+        mediaPlayer.setAudioAttributes(
+            AudioAttributes
+                .Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build()
+        )
     }
 
     private fun hideAllViews() {
@@ -145,7 +153,7 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-    private fun checkObservable() {
+    private fun subscribeToObservable() {
         vm.observable.subscribe {
             if (it.isEmpty()) {
                 Toast.makeText(context, getString(R.string.fakeWord), Toast.LENGTH_SHORT).show()
@@ -172,9 +180,6 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun bindResponse(response: WordResponse) {
-
-        Log.e("s", response.toString())
-
         val word = WordEntity(
             word = response.word,
             meanings = getDefinitions(response),
@@ -182,19 +187,16 @@ class DictionaryFragment : Fragment() {
             transcription = setPhonetic(response),
             partOfSpeech = response.meanings[0].partOfSpeech
         )
-        Log.e("word", word.toString())
-        with(binding) {
-            setMediaPlayer(word)
-            wordName.text = word.word
-            transcription.text = word.transcription
-            partOfSpeechAnswer.text = word.partOfSpeech
-            adapter.initList(word.meanings)
-        }
-        setCurrentWord(word)
+        bindResponse(word)
     }
 
     private fun bindResponse(word: WordEntity) {
         showAllViews()
+        bindWordInfo(word)
+        setCurrentWord(word)
+    }
+
+    private fun bindWordInfo(word: WordEntity) {
         with(binding) {
             setMediaPlayer(word)
             wordName.text = word.word
@@ -202,11 +204,10 @@ class DictionaryFragment : Fragment() {
             partOfSpeechAnswer.text = word.partOfSpeech
             adapter.initList(word.meanings)
         }
-        setCurrentWord(word)
     }
 
     private fun setPhonetic(word: WordResponse): String {
-        return word.phonetic ?: "" // don't fix - android studio is wrong
+        return word.phonetic // don't fix - android studio is wrong
     }
 
     private fun setAudio(response: WordResponse): String {

@@ -14,6 +14,8 @@ import retrofit2.Response
 
 class AppViewModel(private val repository: AppRepository) : ViewModel() {
     val observable: Subject<List<WordResponse>> = PublishSubject.create()
+
+    /*pass word to observable*/
     fun searchNet(query: String) {
         val call = repository.searchNet(query)
         call.enqueue(object : Callback<List<WordResponse>> {
@@ -35,19 +37,23 @@ class AppViewModel(private val repository: AppRepository) : ViewModel() {
         })
     }
 
+    /*check if any user is created*/
     fun checkForUser(): Boolean {
         Log.e("user ", repository.searchUser().toString())
         return repository.searchUser()?.isEmpty() ?: true
     }
 
+    /*save UserEntity to db*/
     fun saveUser(userEntity: UserEntity) {
         repository.saveUser(userEntity)
     }
 
+    /*save WordEntity to db*/
     fun saveToDb(item: WordEntity) {
         repository.saveToDb(item)
     }
 
+    /*check if word was saved*/
     fun checkDbForWord(item: String): WordEntity? {
         return repository.searchDb(item)
     }

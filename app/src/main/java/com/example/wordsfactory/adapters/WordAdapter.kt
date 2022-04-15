@@ -1,5 +1,7 @@
 package com.example.wordsfactory.adapters
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,17 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.WordItemBinding
 
+/*adapter for retrieving word*/
 class WordAdapter : RecyclerView.Adapter<WordAdapter.SliderHolder>() {
     private var sliderList = ArrayList<WordItem>()
 
     class SliderHolder(v: View) : RecyclerView.ViewHolder(v) {
         private val binding = WordItemBinding.bind(v)
-        val context = v.context
+        val context: Context = v.context
         fun bind(it: WordItem) = with(binding) {
             explaining.text = it.definition
-            if (it.example != null && it.example != "null" ) {
+            if (it.example != null && it.example != "null") {
                 exampleText.text = it.example
-            }else
+            } else
                 exampleText.text = context.getString(R.string.noExample)
         }
     }
@@ -35,6 +38,7 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.SliderHolder>() {
         return sliderList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun initList(list: List<WordItem>) {
 
         sliderList = list as ArrayList<WordItem>

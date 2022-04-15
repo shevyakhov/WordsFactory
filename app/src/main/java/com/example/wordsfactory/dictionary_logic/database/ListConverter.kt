@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.example.wordsfactory.adapters.WordItem
 
 class ListConverter {
-    /* Turn List of DefinitionEntities into combined string where elements divided by "|" */
+    /* Turn List of WordItem into combined string where elements divided by "^" and elements of class divided by "|"  */
     @TypeConverter
     fun fromListToOne(value: List<WordItem>): String {
         var string = ""
@@ -16,6 +16,7 @@ class ListConverter {
         return string
     }
 
+    /* reversed function  */
     @TypeConverter
     fun fromOneToList(value: String): List<WordItem> {
         val result = mutableListOf<WordItem>()

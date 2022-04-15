@@ -9,7 +9,8 @@ class NetworkService private constructor() {
     private val mRetrofit: Retrofit
     private var api: WordApi? = null
 
-    val tmdbApi: WordApi
+    /*create wordApi instance*/
+    val wordApi: WordApi
         get() {
             if (api == null) {
                 api = mRetrofit.create(WordApi::class.java)
@@ -17,7 +18,8 @@ class NetworkService private constructor() {
             return api!!
         }
 
-    init {
+    init { /* init retrofit*/
+
         val client = OkHttpClient.Builder()
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -31,9 +33,10 @@ class NetworkService private constructor() {
     }
 
     companion object {
-        private val BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+        private const val BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/" /* can't think of wa getting it from resources*/
         private var mInstance: NetworkService? = null
 
+        /*create NetworkService instance*/
         val instance: NetworkService
             get() {
                 if (mInstance == null) {

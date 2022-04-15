@@ -1,7 +1,6 @@
 package com.example.wordsfactory.dictionary_logic.database
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -12,18 +11,16 @@ import androidx.room.TypeConverters
 @TypeConverters(ListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
+    /* create database instance*/
     companion object {
-        private val LOG_TAG: String = AppDatabase::class.simpleName.toString()
         private val LOCK: Any = Object()
         private const val DATABASE_NAME: String = "words"
 
         @Volatile
         private var sInstance: AppDatabase? = null
-
         fun getInstance(context: Context): AppDatabase {
             if (sInstance == null) {
                 synchronized(LOCK) {
-                    Log.d(LOG_TAG, "Creating new database instance")
                     sInstance = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java, DATABASE_NAME
@@ -31,13 +28,13 @@ abstract class AppDatabase : RoomDatabase() {
                         .build()
                 }
             }
-            Log.d(LOG_TAG, "Getting the database instance")
+
             return sInstance!!
         }
 
     }
 
-
+    /* get db Dao*/
     abstract fun dao(): WordDao
 
 }

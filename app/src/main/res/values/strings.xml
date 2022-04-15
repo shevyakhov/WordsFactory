@@ -13,7 +13,7 @@
     <string name="AddToDictionary">Add to Dictionary</string>
     <string name="createAcc">Create your account</string>
     <string name="password">Password</string>
-    <string name="none"></string>
+    <string name="none" />
     <string name="email">E-mail</string>
     <string name="name">Name</string>
     <string name="warning">Blank space warning</string>

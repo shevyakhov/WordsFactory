@@ -30,6 +30,7 @@ class AlertFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* alert dialog with mainText and subText*/
         binding.mainTextAlert.text = mainText
         binding.subTextAlert.text = subText
 

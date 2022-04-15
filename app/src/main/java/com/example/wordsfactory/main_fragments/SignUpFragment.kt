@@ -37,9 +37,11 @@ class SignUpFragment : Fragment() {
     }
 
     private fun initBinding() {
+        /* if user fields are not empty -> start DictionaryFragment()
+        *   else ->start alertFragment
+        * */
         binding.botButton.setOnClickListener {
             with(binding) {
-
                 if (editName.text?.isNotEmpty() == true && editEmail.text?.isNotEmpty() == true && editPassword.text?.isNotEmpty() == true) {
                     vm.saveUser(
                         UserEntity(

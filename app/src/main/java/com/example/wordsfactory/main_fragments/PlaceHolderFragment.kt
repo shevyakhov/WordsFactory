@@ -28,16 +28,22 @@ class PlaceHolderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* init bottomNavigationView*/
         val bottomNavigationView =
             view.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
-        val radius = resources.getDimension(R.dimen.radius_small)
         val bottomNavigationViewBackground =
             bottomNavigationView.background as MaterialShapeDrawable
         bottomNavigationViewBackground.shapeAppearanceModel =
             bottomNavigationViewBackground.shapeAppearanceModel.toBuilder()
-                .setTopRightCorner(CornerFamily.ROUNDED, radius)
-                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                .setTopRightCorner(
+                    CornerFamily.ROUNDED,
+                    resources.getDimension(R.dimen.radius_small)
+                )
+                .setTopLeftCorner(
+                    CornerFamily.ROUNDED,
+                    resources.getDimension(R.dimen.radius_small)
+                )
                 .build()
         val navController =
             (childFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController

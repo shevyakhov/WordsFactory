@@ -29,6 +29,6 @@ class AppRepository(
     }
 
     fun searchNet(query: String): Call<List<WordResponse>> {
-        return service.tmdbApi.retrieveWord(query)
+        return service.wordApi.retrieveWord(query)
     }
 }

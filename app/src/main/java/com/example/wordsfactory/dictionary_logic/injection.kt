@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.wordsfactory.dictionary_logic.database.AppDatabase
 import com.example.wordsfactory.dictionary_logic.database.WordDao
 
+/* handmade di instead of using dagger*/
 object Injection {
     private fun provideCache(context: Context): WordDao {
         val database = AppDatabase.getInstance(context)
