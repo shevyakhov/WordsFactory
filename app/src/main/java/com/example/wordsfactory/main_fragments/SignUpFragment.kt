@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentSignUpBinding
+import com.example.wordsfactory.dictionary_logic.AppViewModel
+import com.example.wordsfactory.dictionary_logic.Injection
+import com.example.wordsfactory.dictionary_logic.database.UserEntity
 
 
 class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
-
+    private lateinit var vm: AppViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +31,8 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        vm = ViewModelProvider(this, Injection.provideFactory(requireContext()))
+            .get(AppViewModel::class.java)
         initBinding()
     }
 
@@ -35,6 +41,13 @@ class SignUpFragment : Fragment() {
             with(binding) {
 
                 if (editName.text?.isNotEmpty() == true && editEmail.text?.isNotEmpty() == true && editPassword.text?.isNotEmpty() == true) {
+                    vm.saveUser(
+                        UserEntity(
+                            editName.text.toString(),
+                            editEmail.text.toString(),
+                            editPassword.text.toString()
+                        )
+                    )
                     startDictionaryFragment()
                 } else {
                     AlertFragment.newInstance(
@@ -63,7 +76,7 @@ class SignUpFragment : Fragment() {
         hideKeyboard()
 
         parentFragmentManager.beginTransaction()
-            .add(R.id.fragmentHolder, DictionaryPlaceholderFragment.newInstance()).commit()
+            .add(R.id.fragmentHolder, PlaceHolderFragment.newInstance()).commit()
     }
 
     private fun hideKeyboard() {

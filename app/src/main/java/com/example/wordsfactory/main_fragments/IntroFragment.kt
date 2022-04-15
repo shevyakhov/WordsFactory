@@ -15,6 +15,7 @@ import com.example.wordsfactory.databinding.FragmentIntroBinding
 class IntroFragment : Fragment() {
     private lateinit var binding: FragmentIntroBinding
     private val sliderAdapter = SliderAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,11 +23,11 @@ class IntroFragment : Fragment() {
         binding = FragmentIntroBinding.inflate(inflater)
         return binding.root
 
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initBinding()
     }
 

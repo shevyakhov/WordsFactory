@@ -1,4 +1,4 @@
-package com.example.wordsfactory
+package com.example.wordsfactory.main_fragments
 
 import android.media.AudioAttributes
 import android.media.MediaPlayer
@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wordsfactory.R
 import com.example.wordsfactory.adapters.WordAdapter
 import com.example.wordsfactory.adapters.WordItem
 import com.example.wordsfactory.databinding.FragmentDictionaryBinding
@@ -24,8 +25,7 @@ import java.io.IOException
 
 
 class DictionaryFragment : Fragment() {
-
-    var flag: Boolean = true
+    private var flag: Boolean = true
     private val mediaPlayer = MediaPlayer()
     private var currentWord = WordEntity(
         word = "",
@@ -48,6 +48,14 @@ class DictionaryFragment : Fragment() {
 
     private lateinit var vm: AppViewModel
     private lateinit var binding: FragmentDictionaryBinding
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentDictionaryBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm = ViewModelProvider(this, Injection.provideFactory(requireContext()))
@@ -109,14 +117,6 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentDictionaryBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
     private fun hideAllViews() {
         binding.blankBack.visibility = View.VISIBLE
         with(binding) {
@@ -145,7 +145,6 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-
     private fun checkObservable() {
         vm.observable.subscribe {
             if (it.isEmpty()) {
@@ -164,6 +163,13 @@ class DictionaryFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!flag) {
+            showAllViews()
+            bindResponse(currentWord)
+        }
+    }
 
     private fun bindResponse(response: WordResponse) {
 
@@ -211,7 +217,6 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-
     private fun setCurrentWord(word: WordEntity) {
         currentWord.meanings = word.meanings
         currentWord.sound = word.sound
@@ -229,17 +234,17 @@ class DictionaryFragment : Fragment() {
             Log.e("e", e.message.toString())
         }
     }
-}
 
-private fun getDefinitions(response: WordResponse): List<WordItem> {
-    val listing = mutableListOf<WordItem>()
-    for (i in response.meanings) {
-        val word = WordItem(
-            i.definitions[0].definition, i.definitions[0].example
-        )
-        listing.add(
-            word
-        )
+    private fun getDefinitions(response: WordResponse): List<WordItem> {
+        val listing = mutableListOf<WordItem>()
+        for (i in response.meanings) {
+            val word = WordItem(
+                i.definitions[0].definition, i.definitions[0].example
+            )
+            listing.add(
+                word
+            )
+        }
+        return listing
     }
-    return listing
 }

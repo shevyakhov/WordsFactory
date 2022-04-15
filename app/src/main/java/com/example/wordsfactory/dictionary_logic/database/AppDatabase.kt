@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 
-@Database(entities = [WordEntity::class], version = 1)
+@Database(entities = [WordEntity::class, UserEntity::class], version = 2)
 @TypeConverters(ListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -26,8 +26,8 @@ abstract class AppDatabase : RoomDatabase() {
                     Log.d(LOG_TAG, "Creating new database instance")
                     sInstance = Room.databaseBuilder(
                         context.applicationContext,
-                        AppDatabase::class.java, AppDatabase.DATABASE_NAME
-                    ).allowMainThreadQueries()
+                        AppDatabase::class.java, DATABASE_NAME
+                    ).allowMainThreadQueries().fallbackToDestructiveMigration()
                         .build()
                 }
             }

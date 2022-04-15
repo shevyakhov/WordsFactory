@@ -9,11 +9,19 @@ import androidx.room.Query
 interface WordDao {
     @Query("SELECT * FROM WordEntity")
     fun getAll(): List<WordEntity>
+
     @Query("SELECT * FROM WordEntity WHERE word = :word")
-    fun findById(word:String): WordEntity?
+    fun findById(word: String): WordEntity?
+
+    @Query("SELECT * FROM UserEntity")
+    fun findUser(): List<UserEntity>?
 
     @Insert
-    fun insert( item: WordEntity)
+    fun insertUser(item: UserEntity)
+
+    @Insert
+    fun insert(item: WordEntity)
+
     @Delete
     fun delete(item: WordEntity)
 }

@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/dictionaryFragment"
-        android:name="com.example.wordsfactory.DictionaryFragment"
+        android:name="com.example.wordsfactory.main_fragments.DictionaryFragment"
         android:label="fragment_dictionary"
         tools:layout="@layout/fragment_dictionary" />
     <fragment
         android:id="@+id/trainingFragment"
-        android:name="com.example.wordsfactory.TrainingFragment"
+        android:name="com.example.wordsfactory.main_fragments.TrainingFragment"
         android:label="fragment_training"
         tools:layout="@layout/fragment_training" />
     <fragment
         android:id="@+id/videoFragment"
-        android:name="com.example.wordsfactory.VideoFragment"
+        android:name="com.example.wordsfactory.main_fragments.VideoFragment"
         android:label="fragment_video"
         tools:layout="@layout/fragment_video" />
 </navigation>
