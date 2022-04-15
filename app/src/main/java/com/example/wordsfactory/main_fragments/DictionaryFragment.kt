@@ -25,7 +25,6 @@ import java.io.IOException
 
 
 class DictionaryFragment : Fragment() {
-    /*todo onPause fragment???*/
     private var flag: Boolean = true
     private val mediaPlayer = MediaPlayer()
     private var currentWord = WordEntity(
@@ -49,6 +48,14 @@ class DictionaryFragment : Fragment() {
 
     private lateinit var vm: AppViewModel
     private lateinit var binding: FragmentDictionaryBinding
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentDictionaryBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm = ViewModelProvider(this, Injection.provideFactory(requireContext()))
@@ -110,14 +117,6 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentDictionaryBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
     private fun hideAllViews() {
         binding.blankBack.visibility = View.VISIBLE
         with(binding) {
@@ -146,7 +145,6 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-
     private fun checkObservable() {
         vm.observable.subscribe {
             if (it.isEmpty()) {
@@ -165,6 +163,13 @@ class DictionaryFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!flag) {
+            showAllViews()
+            bindResponse(currentWord)
+        }
+    }
 
     private fun bindResponse(response: WordResponse) {
 
@@ -212,7 +217,6 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-
     private fun setCurrentWord(word: WordEntity) {
         currentWord.meanings = word.meanings
         currentWord.sound = word.sound
@@ -228,15 +232,6 @@ class DictionaryFragment : Fragment() {
             mediaPlayer.prepareAsync()
         } catch (e: IOException) {
             Log.e("e", e.message.toString())
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        try {
-            bindResponse(currentWord)
-        } catch (e: Exception) {
-
         }
     }
 

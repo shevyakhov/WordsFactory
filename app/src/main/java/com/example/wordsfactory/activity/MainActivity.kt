@@ -1,16 +1,24 @@
 package com.example.wordsfactory.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.ActivityMainBinding
-import com.example.wordsfactory.dictionary_logic.WordsApp
+import com.example.wordsfactory.dictionary_logic.AppViewModel
+import com.example.wordsfactory.dictionary_logic.Injection
+import com.example.wordsfactory.main_fragments.PlaceHolderFragment
 import com.example.wordsfactory.main_fragments.IntroFragment
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var vm: AppViewModel
+
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        vm = ViewModelProvider(this, Injection.provideFactory(this))
+            .get(AppViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.SplashTheme)
         setContentView(binding.root)
@@ -18,7 +26,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startMainFragment() {
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragmentHolder, IntroFragment.newInstance()).commit()
+        if (vm.checkForUser()) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentHolder, IntroFragment.newInstance()).commit()
+        } else
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentHolder, PlaceHolderFragment.newInstance()).commit()
     }
 }

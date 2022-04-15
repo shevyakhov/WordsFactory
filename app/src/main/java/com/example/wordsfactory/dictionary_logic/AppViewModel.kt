@@ -2,6 +2,7 @@ package com.example.wordsfactory.dictionary_logic
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.wordsfactory.dictionary_logic.database.UserEntity
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.database.WordResponse
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -32,6 +33,15 @@ class AppViewModel(private val repository: AppRepository) : ViewModel() {
             }
 
         })
+    }
+
+    fun checkForUser(): Boolean {
+        Log.e("user ", repository.searchUser().toString())
+        return repository.searchUser()?.isEmpty() ?: true
+    }
+
+    fun saveUser(userEntity: UserEntity) {
+        repository.saveUser(userEntity)
     }
 
     fun saveToDb(item: WordEntity) {
