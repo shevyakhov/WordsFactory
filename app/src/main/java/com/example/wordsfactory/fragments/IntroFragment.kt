@@ -64,11 +64,7 @@ class IntroFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = IntroFragment().apply {
-            arguments = Bundle().apply {
-            /*todo fix apply*/
-            }
-        }
+        fun newInstance() = IntroFragment()
     }
 
 }

@@ -13,9 +13,8 @@ data class UserEntity(
     var email: String,
     @ColumnInfo(name = UserEntityColumnInfoPassword)
     var password: String
-)
-{
-    companion object{
+) {
+    companion object {
         const val UserEntityColumnInfoName = "name"
         const val UserEntityColumnInfoEmail = "email"
         const val UserEntityColumnInfoPassword = "password"

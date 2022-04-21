@@ -33,7 +33,8 @@ class NetworkService private constructor() {
     }
 
     companion object {
-        private const val BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/" /* can't think of wa getting it from resources*/
+        private const val BASE_URL =
+            "https://api.dictionaryapi.dev/api/v2/entries/en/" /* can't think of wa getting it from resources*/
         private var mInstance: NetworkService? = null
 
         /*create NetworkService instance*/

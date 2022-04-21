@@ -92,10 +92,6 @@ class SignUpFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = SignUpFragment().apply {
-            arguments = Bundle().apply {
-
-            }
-        }
+        fun newInstance() = SignUpFragment()
     }
 }

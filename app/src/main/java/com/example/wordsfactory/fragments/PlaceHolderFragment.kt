@@ -54,11 +54,6 @@ class PlaceHolderFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-            PlaceHolderFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
+        fun newInstance() = PlaceHolderFragment()
     }
 }

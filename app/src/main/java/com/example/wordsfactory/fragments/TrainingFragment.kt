@@ -11,13 +11,6 @@ import com.example.wordsfactory.R
 class TrainingFragment : Fragment() {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,14 +18,4 @@ class TrainingFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_training, container, false)
     }
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance() =
-            TrainingFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
-    }
 }
