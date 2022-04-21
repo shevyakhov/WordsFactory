@@ -7,10 +7,17 @@ import androidx.room.PrimaryKey
 @Entity
 data class UserEntity(
     @PrimaryKey
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = UserEntityColumnInfoName)
     var name: String,
-    @ColumnInfo(name = "email")
+    @ColumnInfo(name = UserEntityColumnInfoEmail)
     var email: String,
-    @ColumnInfo(name = "password")
-    var password: String,
+    @ColumnInfo(name = UserEntityColumnInfoPassword)
+    var password: String
 )
+{
+    companion object{
+        const val UserEntityColumnInfoName = "name"
+        const val UserEntityColumnInfoEmail = "email"
+        const val UserEntityColumnInfoPassword = "password"
+    }
+}

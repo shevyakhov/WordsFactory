@@ -33,6 +33,8 @@
     <string name="video">Video</string>
     <string name="training">Training</string>
     <string name="dictionary">Dictionary</string>
+    <string name="AlertFragmentMainText">first</string>
+    <string name="AlertFragmentSubText">second</string>
 
 
 </resources>

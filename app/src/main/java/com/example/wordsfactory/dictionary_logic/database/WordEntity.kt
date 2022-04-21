@@ -8,17 +8,25 @@ import com.example.wordsfactory.adapters.WordItem
 @Entity
 data class WordEntity(
     @PrimaryKey
-    @ColumnInfo(name = "word")
+    @ColumnInfo(name = WordEntityColumnInfoWord)
     var word: String,
-    @ColumnInfo(name = "transcription")
+    @ColumnInfo(name = WordEntityColumnInfoTranscription)
     var transcription: String,
-    @ColumnInfo(name = "soundUrl")
+    @ColumnInfo(name = WordEntityColumnInfoSound)
     var sound: String,
-    @ColumnInfo(name = "partOfSpeech")
+    @ColumnInfo(name = WordEntityColumnInfoPartOfSpeech)
     var partOfSpeech: String,
-    @ColumnInfo
+    @ColumnInfo(name = WordEntityColumnInfoMeanings)
     var meanings: List<WordItem>
-)
+) {
+    companion object {
+        const val WordEntityColumnInfoWord = "word"
+        const val WordEntityColumnInfoTranscription = "transcription"
+        const val WordEntityColumnInfoSound = "soundUrl"
+        const val WordEntityColumnInfoPartOfSpeech = "partOfSpeech"
+        const val WordEntityColumnInfoMeanings = "meanings"
+    }
+}
 
 data class WordResponse(
     val word: String,

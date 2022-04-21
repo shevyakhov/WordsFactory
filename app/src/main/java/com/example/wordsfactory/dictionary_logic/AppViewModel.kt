@@ -29,7 +29,7 @@ class AppViewModel(private val repository: AppRepository) : ViewModel() {
 
             override fun onFailure(call: Call<List<WordResponse>>, t: Throwable) {
                 Log.d(
-                    "ex",
+                    "Exception",
                     "Retrofit Exception -> " + if (t.message != null) t.message else "---"
                 )
             }
@@ -39,7 +39,6 @@ class AppViewModel(private val repository: AppRepository) : ViewModel() {
 
     /*check if any user is created*/
     fun checkForUser(): Boolean {
-        Log.e("user ", repository.searchUser().toString())
         return repository.searchUser()?.isEmpty() ?: true
     }
 
