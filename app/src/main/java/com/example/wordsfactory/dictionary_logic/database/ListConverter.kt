@@ -3,31 +3,36 @@ package com.example.wordsfactory.dictionary_logic.database
 import androidx.room.TypeConverter
 import com.example.wordsfactory.adapters.WordItem
 
+
 class ListConverter {
+    private val emptyString = ""
+    private val wordItemDivider = "^"
+    private val classValueDivider = "|"
+
     /* Turn List of WordItem into combined string where elements divided by "^" and elements of class divided by "|"  */
     @TypeConverter
-    fun fromListToOne(value: List<WordItem>): String {
-        var string = ""
-        for (i in value.indices) {
-            string += value[i].definition + "|" + value[i].example
-            if (i != value.size - 1)
-                string += "^"
+    fun fromListToOne(wordItemList: List<WordItem>): String {
+        var messyString = emptyString
+        for (i in wordItemList.indices) {
+            messyString += wordItemList[i].definition + classValueDivider + wordItemList[i].example
+            if (i != wordItemList.size - 1)
+                messyString += wordItemDivider
         }
-        return string
+        return messyString
     }
 
     /* reversed function  */
     @TypeConverter
     fun fromOneToList(value: String): List<WordItem> {
-        val result = mutableListOf<WordItem>()
-        val step = value.split("^")
+        val wordItemList = mutableListOf<WordItem>()
+        val items = value.split(wordItemDivider)
 
-        for (i in step) {
-            val group = i.split("|")
+        for (i in items) {
+            val group = i.split(classValueDivider)
             val item = WordItem(group[0], group[1])
-            result.add(item)
+            wordItemList.add(item)
         }
 
-        return result
+        return wordItemList
     }
 }

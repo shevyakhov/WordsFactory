@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:windowSoftInputMode="adjustResize"
     android:background="@color/white"
-    tools:context=".main_fragments.SignUpFragment">
+    tools:context=".fragments.SignUpFragment">
 
     <ImageView
         android:id="@+id/kidPic"

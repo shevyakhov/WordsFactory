@@ -1,4 +1,4 @@
-package com.example.wordsfactory.main_fragments
+package com.example.wordsfactory.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,10 +23,6 @@ class TrainingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_training, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     companion object {

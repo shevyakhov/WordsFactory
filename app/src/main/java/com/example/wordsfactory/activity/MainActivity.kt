@@ -7,8 +7,8 @@ import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.ActivityMainBinding
 import com.example.wordsfactory.dictionary_logic.AppViewModel
 import com.example.wordsfactory.dictionary_logic.Injection
-import com.example.wordsfactory.main_fragments.IntroFragment
-import com.example.wordsfactory.main_fragments.PlaceHolderFragment
+import com.example.wordsfactory.fragments.IntroFragment
+import com.example.wordsfactory.fragments.PlaceHolderFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var vm: AppViewModel

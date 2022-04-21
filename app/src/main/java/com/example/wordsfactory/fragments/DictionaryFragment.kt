@@ -1,4 +1,4 @@
-package com.example.wordsfactory.main_fragments
+package com.example.wordsfactory.fragments
 
 import android.media.AudioAttributes
 import android.media.MediaPlayer

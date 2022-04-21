@@ -1,4 +1,4 @@
-package com.example.wordsfactory.main_fragments
+package com.example.wordsfactory.fragments
 
 import android.content.Context
 import android.os.Bundle
