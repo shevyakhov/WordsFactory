@@ -29,10 +29,10 @@ class DictionaryFragment : Fragment() {
     private val mediaPlayer = MediaPlayer()
 
     private var currentWord = WordEntity(
-        word = getString(R.string.none),
-        transcription = getString(R.string.none),
-        sound = getString(R.string.none),
-        partOfSpeech = getString(R.string.none),
+        word = "",
+        transcription = "",
+        sound = "",
+        partOfSpeech = "",
         meanings = listOf()
     )
     private val adapter = WordAdapter()

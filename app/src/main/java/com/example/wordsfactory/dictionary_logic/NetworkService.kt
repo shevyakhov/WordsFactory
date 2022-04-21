@@ -1,5 +1,6 @@
 package com.example.wordsfactory.dictionary_logic
 
+import com.example.wordsfactory.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -33,8 +34,7 @@ class NetworkService private constructor() {
     }
 
     companion object {
-        private const val BASE_URL =
-            "https://api.dictionaryapi.dev/api/v2/entries/en/" /* can't think of wa getting it from resources*/
+        private const val BASE_URL =BuildConfig.BASE_URL
         private var mInstance: NetworkService? = null
 
         /*create NetworkService instance*/
