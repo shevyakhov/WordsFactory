@@ -10,32 +10,32 @@ import com.example.wordsfactory.databinding.FragmentAlertBinding
 
 
 class AlertFragment : DialogFragment() {
-    private lateinit var binding: FragmentAlertBinding
+    private lateinit var fragmentAlertBinding: FragmentAlertBinding
     private var mainText: String? = null
     private var subText: String? = null
-    private var mainTextName = getString(R.string.AlertFragmentMainText)
-    private var subTextName = getString(R.string.AlertFragmentSubText)
+    private var mainTextTag = getString(R.string.AlertFragmentMainText)
+    private var subTextTag = getString(R.string.AlertFragmentSubText)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainText = arguments?.get(mainTextName).toString()
-        subText = arguments?.get(subTextName).toString()
+        mainText = arguments?.get(mainTextTag).toString()
+        subText = arguments?.get(subTextTag).toString()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAlertBinding.inflate(inflater)
-        return binding.root
+        fragmentAlertBinding = FragmentAlertBinding.inflate(inflater)
+        return fragmentAlertBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         /* alert dialog with mainText and subText*/
-        binding.mainTextAlert.text = mainText
-        binding.subTextAlert.text = subText
+        fragmentAlertBinding.mainTextAlert.text = mainText
+        fragmentAlertBinding.subTextAlert.text = subText
 
     }
 
@@ -45,8 +45,8 @@ class AlertFragment : DialogFragment() {
         fun newInstance(param1: String, param2: String) =
             AlertFragment().apply {
                 arguments = Bundle().apply {
-                    putString(mainTextName, param1)
-                    putString(subTextName, param2)
+                    putString(mainTextTag, param1)
+                    putString(subTextTag, param2)
                 }
             }
     }

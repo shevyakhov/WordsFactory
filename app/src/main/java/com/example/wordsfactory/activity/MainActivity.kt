@@ -11,25 +11,25 @@ import com.example.wordsfactory.fragments.IntroFragment
 import com.example.wordsfactory.fragments.PlaceHolderFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var vm: AppViewModel
+    private lateinit var appViewModel: AppViewModel
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var activityMainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //AppViewModel
-        vm = ViewModelProvider(this, Injection.provideFactory(this))
+        appViewModel = ViewModelProvider(this, Injection.provideFactory(this))
             .get(AppViewModel::class.java)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.SplashTheme)//splash screen
-        setContentView(binding.root)
+        setContentView(activityMainBinding.root)
         startMainFragment()
     }
 
     private fun startMainFragment() {
         /* if user is created -> PlaceHolderFragment else IntroFragment*/
-        if (vm.checkForUser()) {
+        if (appViewModel.checkForUser()) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragmentHolder, IntroFragment.newInstance()).commit()
         } else

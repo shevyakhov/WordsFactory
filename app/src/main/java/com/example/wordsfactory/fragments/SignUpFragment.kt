@@ -17,21 +17,21 @@ import com.example.wordsfactory.dictionary_logic.database.UserEntity
 
 
 class SignUpFragment : Fragment() {
-    private lateinit var binding: FragmentSignUpBinding
-    private lateinit var vm: AppViewModel
+    private lateinit var fragmentSignUpBinding: FragmentSignUpBinding
+    private lateinit var appViewModel: AppViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSignUpBinding.inflate(layoutInflater)
+        fragmentSignUpBinding = FragmentSignUpBinding.inflate(layoutInflater)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        return binding.root
+        return fragmentSignUpBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm = ViewModelProvider(this, Injection.provideFactory(requireContext()))
+        appViewModel = ViewModelProvider(this, Injection.provideFactory(requireContext()))
             .get(AppViewModel::class.java)
         initBinding()
     }
@@ -40,10 +40,10 @@ class SignUpFragment : Fragment() {
         /* if user fields are not empty -> start DictionaryFragment()
         *   else ->start alertFragment
         * */
-        binding.botButton.setOnClickListener {
-            with(binding) {
+        fragmentSignUpBinding.botButton.setOnClickListener {
+            with(fragmentSignUpBinding) {
                 if (editName.text?.isNotEmpty() == true && editEmail.text?.isNotEmpty() == true && editPassword.text?.isNotEmpty() == true) {
-                    vm.saveUser(
+                    appViewModel.saveUser(
                         UserEntity(
                             editName.text.toString(),
                             editEmail.text.toString(),
@@ -65,11 +65,11 @@ class SignUpFragment : Fragment() {
 
     private fun findEmptyFields(): String {
         var fields = getString(R.string.pleaseEnter) + "\n"
-        if (binding.editName.text?.isEmpty() == true)
+        if (fragmentSignUpBinding.editName.text?.isEmpty() == true)
             fields += getString(R.string.nameAdd)
-        if (binding.editEmail.text?.isEmpty() == true)
+        if (fragmentSignUpBinding.editEmail.text?.isEmpty() == true)
             fields += getString(R.string.emailAdd)
-        if (binding.editPassword.text?.isEmpty() == true)
+        if (fragmentSignUpBinding.editPassword.text?.isEmpty() == true)
             fields += getString(R.string.passAdd)
         return fields
     }

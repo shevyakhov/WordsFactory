@@ -9,23 +9,23 @@ import retrofit2.Call
 
 class AppRepository(
     private val service: NetworkService,
-    private val dao: WordDao
+    private val wordDao: WordDao
 ) {
 
     fun searchDb(query: String): WordEntity? {
-        return dao.findById(query)
+        return wordDao.findById(query)
     }
 
     fun searchUser(): List<UserEntity>? {
-        return dao.findUser()
+        return wordDao.findUser()
     }
 
     fun saveUser(userEntity: UserEntity) {
-        return dao.insertUser(userEntity)
+        return wordDao.insertUser(userEntity)
     }
 
     fun saveToDb(item: WordEntity) {
-        dao.insert(item)
+        wordDao.insert(item)
     }
 
     fun searchNet(query: String): Call<List<WordResponse>> {

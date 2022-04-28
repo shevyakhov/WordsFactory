@@ -12,13 +12,13 @@ import com.example.wordsfactory.databinding.SliderItemBinding
 class SliderAdapter : RecyclerView.Adapter<SliderAdapter.SliderHolder>() {
     private var sliderList = listOf<SliderItem>()
 
-    class SliderHolder(v: View) : RecyclerView.ViewHolder(v) {
-        private val binding = SliderItemBinding.bind(v)
-        val context: Context = v.context
-        fun bind(it: SliderItem) = with(binding) {
-            sliderMainText.text = context.getText(it.mainText)
-            sliderSubText.text = context.getText(it.subText)
-            sliderImage.setImageResource(it.image)
+    class SliderHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val sliderItemBinding = SliderItemBinding.bind(view)
+        val context: Context = view.context
+        fun bind(item: SliderItem) = with(sliderItemBinding) {
+            sliderMainText.text = context.getText(item.mainText)
+            sliderSubText.text = context.getText(item.subText)
+            sliderImage.setImageResource(item.image)
         }
     }
 

@@ -13,15 +13,15 @@ import com.example.wordsfactory.databinding.FragmentIntroBinding
 
 
 class IntroFragment : Fragment() {
-    private lateinit var binding: FragmentIntroBinding
+    private lateinit var fragmentIntroBinding: FragmentIntroBinding
     private val sliderAdapter = SliderAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentIntroBinding.inflate(inflater)
-        return binding.root
+        fragmentIntroBinding = FragmentIntroBinding.inflate(inflater)
+        return fragmentIntroBinding.root
 
     }
 
@@ -32,27 +32,29 @@ class IntroFragment : Fragment() {
     }
 
     private fun initBinding() {
-        binding.viewPager.adapter = sliderAdapter
+        fragmentIntroBinding.viewPager.adapter = sliderAdapter
         sliderAdapter.initList(introList)
-        val indicator = binding.indicator
-        indicator.setViewPager(binding.viewPager)
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
+        val indicator = fragmentIntroBinding.indicator
+        indicator.setViewPager(fragmentIntroBinding.viewPager)
+        fragmentIntroBinding.viewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 if (position == sliderAdapter.itemCount - 1) {
-                    binding.botButton.text = getText(R.string.LetsStart)
+                    fragmentIntroBinding.botButton.text = getText(R.string.LetsStart)
                 } else
-                    binding.botButton.text = getText(R.string.next)
+                    fragmentIntroBinding.botButton.text = getText(R.string.next)
             }
         })
-        binding.skipBtn.setOnClickListener {
+        fragmentIntroBinding.skipBtn.setOnClickListener {
             registrationFragment()
         }
-        binding.botButton.setOnClickListener {
-            if (binding.viewPager.currentItem == sliderAdapter.itemCount - 1) {
+        fragmentIntroBinding.botButton.setOnClickListener {
+            if (fragmentIntroBinding.viewPager.currentItem == sliderAdapter.itemCount - 1) {
                 registrationFragment()
             } else
-                binding.viewPager.currentItem++
+                fragmentIntroBinding.viewPager.currentItem++
         }
     }
 

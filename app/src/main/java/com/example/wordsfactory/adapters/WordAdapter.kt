@@ -13,13 +13,13 @@ import com.example.wordsfactory.databinding.WordItemBinding
 class WordAdapter : RecyclerView.Adapter<WordAdapter.SliderHolder>() {
     private var sliderList = ArrayList<WordItem>()
 
-    class SliderHolder(v: View) : RecyclerView.ViewHolder(v) {
-        private val binding = WordItemBinding.bind(v)
-        val context: Context = v.context
-        fun bind(it: WordItem) = with(binding) {
-            explaining.text = it.definition
-            if (it.example != null && it.example != "null") {
-                exampleText.text = it.example
+    class SliderHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val wordItemBinding = WordItemBinding.bind(view)
+        val context: Context = view.context
+        fun bind(item: WordItem) = with(wordItemBinding) {
+            explaining.text = item.definition
+            if (item.example != null && item.example != "null") {
+                exampleText.text = item.example
             } else
                 exampleText.text = context.getString(R.string.noExample)
         }

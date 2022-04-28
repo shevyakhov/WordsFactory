@@ -8,15 +8,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkService private constructor() {
     private val mRetrofit: Retrofit
-    private var api: WordApi? = null
+    private var mWordApi: WordApi? = null
 
     /*create wordApi instance*/
     val wordApi: WordApi
         get() {
-            if (api == null) {
-                api = mRetrofit.create(WordApi::class.java)
+            if (mWordApi == null) {
+                mWordApi = mRetrofit.create(WordApi::class.java)
             }
-            return api!!
+            return mWordApi!!
         }
 
     init { /* init retrofit*/

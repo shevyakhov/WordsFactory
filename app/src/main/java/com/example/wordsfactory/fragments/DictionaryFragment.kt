@@ -38,19 +38,19 @@ class DictionaryFragment : Fragment() {
     private val adapter = WordAdapter()
 
 
-    private lateinit var vm: AppViewModel
-    private lateinit var binding: FragmentDictionaryBinding
+    private lateinit var appViewModel: AppViewModel
+    private lateinit var fragmentDictionaryBinding: FragmentDictionaryBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDictionaryBinding.inflate(layoutInflater)
-        return binding.root
+        fragmentDictionaryBinding = FragmentDictionaryBinding.inflate(layoutInflater)
+        return fragmentDictionaryBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm = ViewModelProvider(this, Injection.provideFactory(requireContext()))
+        appViewModel = ViewModelProvider(this, Injection.provideFactory(requireContext()))
             .get(AppViewModel::class.java)
 
         hideAllViews()
@@ -66,15 +66,15 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun setClickListeners() {
-        binding.botButton.setOnClickListener {
-            val i = vm.checkDbForWord(currentWord.word)
-            if (i == null) {
-                vm.saveToDb(currentWord)
+        fragmentDictionaryBinding.botButton.setOnClickListener {
+            val wordEntity = appViewModel.checkDbForWord(currentWord.word)
+            if (wordEntity == null) {
+                appViewModel.saveToDb(currentWord)
                 Toast.makeText(context, getString(R.string.wordIsSaved), Toast.LENGTH_SHORT).show()
             } else Toast.makeText(context, getString(R.string.wordIsAlready), Toast.LENGTH_SHORT)
                 .show()
         }
-        binding.listener.setOnClickListener {
+        fragmentDictionaryBinding.listener.setOnClickListener {
             if (currentWord.sound != getString(R.string.none)) {
                 try {
                     mediaPlayer.start()
@@ -91,19 +91,19 @@ class DictionaryFragment : Fragment() {
 
     /*search net if word is not saved in room db*/
     private fun setSearchBar() {
-        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                if (p0 != null) {
-                    val i = vm.checkDbForWord(p0)
+        fragmentDictionaryBinding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    val i = appViewModel.checkDbForWord(query)
                     if (i == null)
-                        vm.searchNet(p0)
+                        appViewModel.searchNet(query)
                     else bindResponse(i)
 
                 }
                 return false
             }
 
-            override fun onQueryTextChange(p0: String?): Boolean {
+            override fun onQueryTextChange(query: String?): Boolean {
                 return false
             }
 
@@ -111,9 +111,9 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        binding.meaningHolder.layoutManager =
+        fragmentDictionaryBinding.meaningHolder.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.meaningHolder.adapter = adapter
+        fragmentDictionaryBinding.meaningHolder.adapter = adapter
     }
 
     private fun setAudioPlayer() {
@@ -126,8 +126,8 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun hideAllViews() {
-        binding.blankBack.visibility = View.VISIBLE
-        with(binding) {
+        fragmentDictionaryBinding.blankBack.visibility = View.VISIBLE
+        with(fragmentDictionaryBinding) {
             partOfSpeech.visibility = View.INVISIBLE
             listener.visibility = View.INVISIBLE
             wordName.visibility = View.INVISIBLE
@@ -140,8 +140,8 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun showAllViews() {
-        binding.blankBack.visibility = View.INVISIBLE
-        with(binding) {
+        fragmentDictionaryBinding.blankBack.visibility = View.INVISIBLE
+        with(fragmentDictionaryBinding) {
             partOfSpeech.visibility = View.VISIBLE
             listener.visibility = View.VISIBLE
             wordName.visibility = View.VISIBLE
@@ -154,7 +154,7 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun subscribeToObservable() {
-        vm.observable.subscribe {
+        appViewModel.observable.subscribe {
             if (it.isEmpty()) {
                 Toast.makeText(context, getString(R.string.fakeWord), Toast.LENGTH_SHORT).show()
             } else {
@@ -197,7 +197,7 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun bindWordInfo(word: WordEntity) {
-        with(binding) {
+        with(fragmentDictionaryBinding) {
             setMediaPlayer(word)
             wordName.text = word.word
             transcription.text = word.transcription
