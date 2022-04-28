@@ -7,16 +7,18 @@
     android:layout_height="match_parent"
     android:windowSoftInputMode="adjustResize"
     android:background="@color/white"
-    tools:context=".fragments.SignUpFragment">
+    tools:context=".ui.introduction_screens.sign_up.SignUpFragment">
 
     <ImageView
+
         android:id="@+id/kidPic"
         android:layout_width="340dp"
         android:layout_height="250dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/kid_standing" />
+        android:src="@drawable/kid_standing"
+        android:contentDescription="@string/description" />
 
     <TextView
         android:id="@+id/topText"

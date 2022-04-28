@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.ActivityMainBinding
-import com.example.wordsfactory.dictionary_logic.AppViewModel
-import com.example.wordsfactory.dictionary_logic.Injection
-import com.example.wordsfactory.fragments.IntroFragment
-import com.example.wordsfactory.fragments.PlaceHolderFragment
+import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
+import com.example.wordsfactory.dictionary_logic.repository.Injection
+import com.example.wordsfactory.ui.introduction_screens.intro.IntroFragment
+import com.example.wordsfactory.ui.navigation_fragments.PlaceHolderFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appViewModel: AppViewModel

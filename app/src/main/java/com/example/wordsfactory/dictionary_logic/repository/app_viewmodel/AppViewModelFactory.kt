@@ -1,10 +1,11 @@
-package com.example.wordsfactory.dictionary_logic
+package com.example.wordsfactory.dictionary_logic.repository.app_viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.wordsfactory.dictionary_logic.repository.AppRepository
 
 /* ViewModel Factory*/
-class Factory(private val repository: AppRepository) : ViewModelProvider.Factory {
+class AppViewModelFactory(private val repository: AppRepository) : ViewModelProvider.Factory {
     private val unknownException = "Unknown ViewModel class"
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AppViewModel::class.java)) {

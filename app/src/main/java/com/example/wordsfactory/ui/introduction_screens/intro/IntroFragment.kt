@@ -1,4 +1,4 @@
-package com.example.wordsfactory.fragments
+package com.example.wordsfactory.ui.introduction_screens.intro
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.wordsfactory.R
-import com.example.wordsfactory.adapters.SliderAdapter
-import com.example.wordsfactory.adapters.introList
 import com.example.wordsfactory.databinding.FragmentIntroBinding
+import com.example.wordsfactory.ui.introduction_screens.intro.adapter.SliderAdapter
+import com.example.wordsfactory.ui.introduction_screens.intro.adapter.introList
+import com.example.wordsfactory.ui.introduction_screens.sign_up.SignUpFragment
 
 
 class IntroFragment : Fragment() {

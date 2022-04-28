@@ -1,4 +1,4 @@
-package com.example.wordsfactory.fragments
+package com.example.wordsfactory.ui.navigation_fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

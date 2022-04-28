@@ -1,4 +1,4 @@
-package com.example.wordsfactory.adapters
+package com.example.wordsfactory.ui.introduction_screens.intro.adapter
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

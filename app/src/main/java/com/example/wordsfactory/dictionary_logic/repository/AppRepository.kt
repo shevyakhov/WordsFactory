@@ -1,9 +1,10 @@
-package com.example.wordsfactory.dictionary_logic
+package com.example.wordsfactory.dictionary_logic.repository
 
 import com.example.wordsfactory.dictionary_logic.database.UserEntity
 import com.example.wordsfactory.dictionary_logic.database.WordDao
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.database.WordResponse
+import com.example.wordsfactory.dictionary_logic.repository.retrofit.NetworkService
 import retrofit2.Call
 
 

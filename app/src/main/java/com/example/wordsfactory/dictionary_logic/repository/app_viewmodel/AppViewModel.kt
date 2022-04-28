@@ -1,10 +1,11 @@
-package com.example.wordsfactory.dictionary_logic
+package com.example.wordsfactory.dictionary_logic.repository.app_viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.wordsfactory.dictionary_logic.database.UserEntity
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.database.WordResponse
+import com.example.wordsfactory.dictionary_logic.repository.AppRepository
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import retrofit2.Call

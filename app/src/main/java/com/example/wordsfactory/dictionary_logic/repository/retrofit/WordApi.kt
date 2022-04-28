@@ -1,4 +1,4 @@
-package com.example.wordsfactory.dictionary_logic
+package com.example.wordsfactory.dictionary_logic.repository.retrofit
 
 import com.example.wordsfactory.dictionary_logic.database.WordResponse
 import retrofit2.Call

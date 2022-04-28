@@ -35,6 +35,7 @@
     <string name="dictionary">Dictionary</string>
     <string name="AlertFragmentMainText">first</string>
     <string name="AlertFragmentSubText">second</string>
+    <string name="description">descr</string>
 
 
 </resources>

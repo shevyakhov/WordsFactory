@@ -1,4 +1,4 @@
-package com.example.wordsfactory.adapters
+package com.example.wordsfactory.ui.navigation_fragments.dictionary.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context

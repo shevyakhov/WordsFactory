@@ -1,4 +1,4 @@
-package com.example.wordsfactory.adapters
+package com.example.wordsfactory.ui.introduction_screens.intro.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

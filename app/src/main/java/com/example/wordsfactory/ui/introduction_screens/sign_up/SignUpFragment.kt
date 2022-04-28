@@ -1,4 +1,4 @@
-package com.example.wordsfactory.fragments
+package com.example.wordsfactory.ui.introduction_screens.sign_up
 
 import android.content.Context
 import android.os.Bundle
@@ -11,9 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentSignUpBinding
-import com.example.wordsfactory.dictionary_logic.AppViewModel
-import com.example.wordsfactory.dictionary_logic.Injection
+import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
+import com.example.wordsfactory.dictionary_logic.repository.Injection
 import com.example.wordsfactory.dictionary_logic.database.UserEntity
+import com.example.wordsfactory.ui.navigation_fragments.PlaceHolderFragment
+import com.example.wordsfactory.ui.alert_fragment.AlertFragment
 
 
 class SignUpFragment : Fragment() {

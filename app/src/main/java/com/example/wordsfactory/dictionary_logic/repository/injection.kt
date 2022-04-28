@@ -1,9 +1,11 @@
-package com.example.wordsfactory.dictionary_logic
+package com.example.wordsfactory.dictionary_logic.repository
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.example.wordsfactory.dictionary_logic.database.AppDatabase
 import com.example.wordsfactory.dictionary_logic.database.WordDao
+import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModelFactory
+import com.example.wordsfactory.dictionary_logic.repository.retrofit.NetworkService
 
 /* handmade di instead of using dagger*/
 object Injection {
@@ -17,7 +19,7 @@ object Injection {
     }
 
     fun provideFactory(context: Context): ViewModelProvider.Factory {
-        return Factory(provideRepository(context))
+        return AppViewModelFactory(provideRepository(context))
     }
 
 }

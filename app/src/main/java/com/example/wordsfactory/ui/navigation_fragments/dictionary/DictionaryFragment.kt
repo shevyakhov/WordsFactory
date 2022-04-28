@@ -1,4 +1,4 @@
-package com.example.wordsfactory.fragments
+package com.example.wordsfactory.ui.navigation_fragments.dictionary
 
 import android.media.AudioAttributes
 import android.media.MediaPlayer
@@ -14,13 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wordsfactory.R
-import com.example.wordsfactory.adapters.WordAdapter
-import com.example.wordsfactory.adapters.WordItem
 import com.example.wordsfactory.databinding.FragmentDictionaryBinding
-import com.example.wordsfactory.dictionary_logic.AppViewModel
-import com.example.wordsfactory.dictionary_logic.Injection
+import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
+import com.example.wordsfactory.dictionary_logic.repository.Injection
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.database.WordResponse
+import com.example.wordsfactory.ui.navigation_fragments.dictionary.adapter.WordAdapter
+import com.example.wordsfactory.ui.navigation_fragments.dictionary.adapter.WordItem
 import java.io.IOException
 
 

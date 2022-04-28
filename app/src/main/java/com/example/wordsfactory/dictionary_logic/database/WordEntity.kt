@@ -3,7 +3,7 @@ package com.example.wordsfactory.dictionary_logic.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.wordsfactory.adapters.WordItem
+import com.example.wordsfactory.ui.navigation_fragments.dictionary.adapter.WordItem
 
 @Entity
 data class WordEntity(

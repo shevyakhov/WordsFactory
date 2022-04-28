@@ -1,7 +1,7 @@
 package com.example.wordsfactory.dictionary_logic.database
 
 import androidx.room.TypeConverter
-import com.example.wordsfactory.adapters.WordItem
+import com.example.wordsfactory.ui.navigation_fragments.dictionary.adapter.WordItem
 
 
 class ListConverter {
