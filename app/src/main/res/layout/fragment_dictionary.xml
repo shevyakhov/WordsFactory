@@ -32,6 +32,7 @@
 
 
     <ImageView
+        android:contentDescription="@string/description"
         android:id="@+id/blankBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,6 +67,7 @@
         tools:text="[ˈkʊkɪŋ]" />
 
     <ImageView
+        android:contentDescription="@string/description"
         android:id="@+id/listener"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -133,8 +135,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
         android:background="@drawable/main_btn"
-
-        android:text="@string/next"
+        android:text="@string/save"
         app:backgroundTint="@null" />
 
 

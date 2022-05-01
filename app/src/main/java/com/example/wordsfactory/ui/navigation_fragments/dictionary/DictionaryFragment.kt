@@ -15,12 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentDictionaryBinding
-import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
-import com.example.wordsfactory.dictionary_logic.repository.Injection
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.database.WordResponse
+import com.example.wordsfactory.dictionary_logic.repository.Injection
+import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
 import com.example.wordsfactory.ui.navigation_fragments.dictionary.adapter.WordAdapter
-import com.example.wordsfactory.ui.navigation_fragments.dictionary.adapter.WordItem
 import java.io.IOException
 
 
@@ -28,17 +27,12 @@ class DictionaryFragment : Fragment() {
     private var flag: Boolean = true
     private val mediaPlayer = MediaPlayer()
 
-    private var currentWord = WordEntity(
-        word = "",
-        transcription = "",
-        sound = "",
-        partOfSpeech = "",
-        meanings = listOf()
-    )
+
     private val adapter = WordAdapter()
 
 
     private lateinit var appViewModel: AppViewModel
+    private lateinit var dictionaryViewModel: DictionaryViewModel
     private lateinit var fragmentDictionaryBinding: FragmentDictionaryBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +46,7 @@ class DictionaryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         appViewModel = ViewModelProvider(this, Injection.provideFactory(requireContext()))
             .get(AppViewModel::class.java)
+        dictionaryViewModel = ViewModelProvider(this)[DictionaryViewModel::class.java]
 
         hideAllViews()
         initViews()
@@ -67,15 +62,15 @@ class DictionaryFragment : Fragment() {
 
     private fun setClickListeners() {
         fragmentDictionaryBinding.botButton.setOnClickListener {
-            val wordEntity = appViewModel.checkDbForWord(currentWord.word)
+            val wordEntity = appViewModel.checkDbForWord(dictionaryViewModel.getCurrentWordName())
             if (wordEntity == null) {
-                appViewModel.saveToDb(currentWord)
+                appViewModel.saveToDb(dictionaryViewModel.getCurrentWordObject())
                 Toast.makeText(context, getString(R.string.wordIsSaved), Toast.LENGTH_SHORT).show()
             } else Toast.makeText(context, getString(R.string.wordIsAlready), Toast.LENGTH_SHORT)
                 .show()
         }
         fragmentDictionaryBinding.listener.setOnClickListener {
-            if (currentWord.sound != getString(R.string.none)) {
+            if (dictionaryViewModel.getCurrentWordSound() != getString(R.string.none)) {
                 try {
                     mediaPlayer.start()
                 } catch (e: Exception) {
@@ -91,7 +86,8 @@ class DictionaryFragment : Fragment() {
 
     /*search net if word is not saved in room db*/
     private fun setSearchBar() {
-        fragmentDictionaryBinding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        fragmentDictionaryBinding.searchBar.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     val i = appViewModel.checkDbForWord(query)
@@ -175,25 +171,19 @@ class DictionaryFragment : Fragment() {
         super.onResume()
         if (!flag) {
             showAllViews()
-            bindResponse(currentWord)
+            bindResponse(dictionaryViewModel.getCurrentWordObject())
         }
     }
 
     private fun bindResponse(response: WordResponse) {
-        val word = WordEntity(
-            word = response.word,
-            meanings = getDefinitions(response),
-            sound = setAudio(response),
-            transcription = setPhonetic(response),
-            partOfSpeech = response.meanings[0].partOfSpeech
-        )
+        val word = dictionaryViewModel.responseToWordEntity(response)
         bindResponse(word)
     }
 
     private fun bindResponse(word: WordEntity) {
         showAllViews()
         bindWordInfo(word)
-        setCurrentWord(word)
+        dictionaryViewModel.setCurrentWordInfo(word)
     }
 
     private fun bindWordInfo(word: WordEntity) {
@@ -206,25 +196,6 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-    private fun setPhonetic(word: WordResponse): String {
-        return word.phonetic // don't fix - android studio is wrong
-    }
-
-    private fun setAudio(response: WordResponse): String {
-        return if (response.phonetics.isNotEmpty()) {
-            response.phonetics[0].audio
-        } else {
-            getString(R.string.none)
-        }
-    }
-
-    private fun setCurrentWord(word: WordEntity) {
-        currentWord.meanings = word.meanings
-        currentWord.sound = word.sound
-        currentWord.word = word.word
-        currentWord.transcription = word.transcription
-        currentWord.partOfSpeech = word.partOfSpeech
-    }
 
     private fun setMediaPlayer(word: WordEntity) {
         mediaPlayer.reset()
@@ -236,16 +207,5 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-    private fun getDefinitions(response: WordResponse): List<WordItem> {
-        val listing = mutableListOf<WordItem>()
-        for (i in response.meanings) {
-            val word = WordItem(
-                i.definitions[0].definition, i.definitions[0].example
-            )
-            listing.add(
-                word
-            )
-        }
-        return listing
-    }
+
 }
