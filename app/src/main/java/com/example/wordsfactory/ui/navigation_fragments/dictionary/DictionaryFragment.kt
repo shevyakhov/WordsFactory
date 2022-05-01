@@ -26,20 +26,20 @@ import java.io.IOException
 class DictionaryFragment : Fragment() {
     private var flag: Boolean = true
     private val mediaPlayer = MediaPlayer()
-
-
+    private var _binding: FragmentDictionaryBinding? = null
+    private val binding get() = _binding!!
     private val adapter = WordAdapter()
 
 
     private lateinit var appViewModel: AppViewModel
     private lateinit var dictionaryViewModel: DictionaryViewModel
-    private lateinit var fragmentDictionaryBinding: FragmentDictionaryBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentDictionaryBinding = FragmentDictionaryBinding.inflate(layoutInflater)
-        return fragmentDictionaryBinding.root
+        _binding = FragmentDictionaryBinding.inflate(inflater, container, false)
+        return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,7 +61,7 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun setClickListeners() {
-        fragmentDictionaryBinding.botButton.setOnClickListener {
+        binding.botButton.setOnClickListener {
             val wordEntity = appViewModel.checkDbForWord(dictionaryViewModel.getCurrentWordName())
             if (wordEntity == null) {
                 appViewModel.saveToDb(dictionaryViewModel.getCurrentWordObject())
@@ -69,7 +69,7 @@ class DictionaryFragment : Fragment() {
             } else Toast.makeText(context, getString(R.string.wordIsAlready), Toast.LENGTH_SHORT)
                 .show()
         }
-        fragmentDictionaryBinding.listener.setOnClickListener {
+        binding.listener.setOnClickListener {
             if (dictionaryViewModel.getCurrentWordSound() != getString(R.string.none)) {
                 try {
                     mediaPlayer.start()
@@ -86,7 +86,7 @@ class DictionaryFragment : Fragment() {
 
     /*search net if word is not saved in room db*/
     private fun setSearchBar() {
-        fragmentDictionaryBinding.searchBar.setOnQueryTextListener(object :
+        binding.searchBar.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
@@ -107,9 +107,9 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        fragmentDictionaryBinding.meaningHolder.layoutManager =
+        binding.meaningHolder.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        fragmentDictionaryBinding.meaningHolder.adapter = adapter
+        binding.meaningHolder.adapter = adapter
     }
 
     private fun setAudioPlayer() {
@@ -122,8 +122,8 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun hideAllViews() {
-        fragmentDictionaryBinding.blankBack.visibility = View.VISIBLE
-        with(fragmentDictionaryBinding) {
+        binding.blankBack.visibility = View.VISIBLE
+        with(binding) {
             partOfSpeech.visibility = View.INVISIBLE
             listener.visibility = View.INVISIBLE
             wordName.visibility = View.INVISIBLE
@@ -136,8 +136,8 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun showAllViews() {
-        fragmentDictionaryBinding.blankBack.visibility = View.INVISIBLE
-        with(fragmentDictionaryBinding) {
+        binding.blankBack.visibility = View.INVISIBLE
+        with(binding) {
             partOfSpeech.visibility = View.VISIBLE
             listener.visibility = View.VISIBLE
             wordName.visibility = View.VISIBLE
@@ -187,7 +187,7 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun bindWordInfo(word: WordEntity) {
-        with(fragmentDictionaryBinding) {
+        with(binding) {
             setMediaPlayer(word)
             wordName.text = word.word
             transcription.text = word.transcription
@@ -207,5 +207,9 @@ class DictionaryFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

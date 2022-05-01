@@ -11,24 +11,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentSignUpBinding
-import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
-import com.example.wordsfactory.dictionary_logic.repository.Injection
 import com.example.wordsfactory.dictionary_logic.database.UserEntity
-import com.example.wordsfactory.ui.navigation_fragments.PlaceHolderFragment
+import com.example.wordsfactory.dictionary_logic.repository.Injection
+import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
 import com.example.wordsfactory.ui.alert_fragment.AlertFragment
+import com.example.wordsfactory.ui.navigation_fragments.PlaceHolderFragment
 
 
 class SignUpFragment : Fragment() {
-    private lateinit var fragmentSignUpBinding: FragmentSignUpBinding
     private lateinit var appViewModel: AppViewModel
-
+    private var _binding: FragmentSignUpBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentSignUpBinding = FragmentSignUpBinding.inflate(layoutInflater)
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        return fragmentSignUpBinding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,8 +42,8 @@ class SignUpFragment : Fragment() {
         /* if user fields are not empty -> start DictionaryFragment()
         *   else ->start alertFragment
         * */
-        fragmentSignUpBinding.botButton.setOnClickListener {
-            with(fragmentSignUpBinding) {
+        binding.botButton.setOnClickListener {
+            with(binding) {
                 if (editName.text?.isNotEmpty() == true && editEmail.text?.isNotEmpty() == true && editPassword.text?.isNotEmpty() == true) {
                     appViewModel.saveUser(
                         UserEntity(
@@ -67,11 +67,11 @@ class SignUpFragment : Fragment() {
 
     private fun findEmptyFields(): String {
         var fields = getString(R.string.pleaseEnter) + "\n"
-        if (fragmentSignUpBinding.editName.text?.isEmpty() == true)
+        if (binding.editName.text?.isEmpty() == true)
             fields += getString(R.string.nameAdd)
-        if (fragmentSignUpBinding.editEmail.text?.isEmpty() == true)
+        if (binding.editEmail.text?.isEmpty() == true)
             fields += getString(R.string.emailAdd)
-        if (fragmentSignUpBinding.editPassword.text?.isEmpty() == true)
+        if (binding.editPassword.text?.isEmpty() == true)
             fields += getString(R.string.passAdd)
         return fields
     }
@@ -95,5 +95,10 @@ class SignUpFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = SignUpFragment()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

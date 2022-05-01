@@ -14,15 +14,18 @@ import com.example.wordsfactory.ui.introduction_screens.sign_up.SignUpFragment
 
 
 class IntroFragment : Fragment() {
-    private lateinit var fragmentIntroBinding: FragmentIntroBinding
     private val sliderAdapter = SliderAdapter()
+    private var _binding: FragmentIntroBinding? = null
 
+    // This property is only valid between onCreateView and
+// onDestroyView.
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentIntroBinding = FragmentIntroBinding.inflate(inflater)
-        return fragmentIntroBinding.root
+        _binding = FragmentIntroBinding.inflate(inflater, container, false)
+        return this.binding.root
 
     }
 
@@ -33,29 +36,29 @@ class IntroFragment : Fragment() {
     }
 
     private fun initBinding() {
-        fragmentIntroBinding.viewPager.adapter = sliderAdapter
+        binding.viewPager.adapter = sliderAdapter
         sliderAdapter.initList(introList)
 
-        val indicator = fragmentIntroBinding.indicator
-        indicator.setViewPager(fragmentIntroBinding.viewPager)
-        fragmentIntroBinding.viewPager.registerOnPageChangeCallback(object :
+        val indicator = binding.indicator
+        indicator.setViewPager(binding.viewPager)
+        binding.viewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 if (position == sliderAdapter.itemCount - 1) {
-                    fragmentIntroBinding.botButton.text = getText(R.string.LetsStart)
+                    binding.botButton.text = getText(R.string.LetsStart)
                 } else
-                    fragmentIntroBinding.botButton.text = getText(R.string.next)
+                    binding.botButton.text = getText(R.string.next)
             }
         })
-        fragmentIntroBinding.skipBtn.setOnClickListener {
+        binding.skipBtn.setOnClickListener {
             registrationFragment()
         }
-        fragmentIntroBinding.botButton.setOnClickListener {
-            if (fragmentIntroBinding.viewPager.currentItem == sliderAdapter.itemCount - 1) {
+        binding.botButton.setOnClickListener {
+            if (binding.viewPager.currentItem == sliderAdapter.itemCount - 1) {
                 registrationFragment()
             } else
-                fragmentIntroBinding.viewPager.currentItem++
+                binding.viewPager.currentItem++
         }
     }
 
@@ -64,7 +67,10 @@ class IntroFragment : Fragment() {
             .add(R.id.fragmentHolder, SignUpFragment.newInstance()).commit()
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     companion object {
         @JvmStatic
         fun newInstance() = IntroFragment()

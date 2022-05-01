@@ -15,14 +15,15 @@ import com.google.android.material.shape.MaterialShapeDrawable
 
 
 class PlaceHolderFragment : Fragment() {
-    private lateinit var fragmentPlaceholderBinding: FragmentPlaceholderBinding
 
+    private var _binding: FragmentPlaceholderBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentPlaceholderBinding = FragmentPlaceholderBinding.inflate(layoutInflater)
-        return fragmentPlaceholderBinding.root
+        _binding = FragmentPlaceholderBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +52,10 @@ class PlaceHolderFragment : Fragment() {
 
 
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     companion object {
         @JvmStatic
         fun newInstance() = PlaceHolderFragment()

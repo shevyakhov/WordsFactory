@@ -10,7 +10,9 @@ import com.example.wordsfactory.databinding.FragmentAlertBinding
 
 
 class AlertFragment : DialogFragment() {
-    private lateinit var fragmentAlertBinding: FragmentAlertBinding
+    private var _binding: FragmentAlertBinding? =null
+    private val binding get() = _binding!!
+
     private var mainText: String? = null
     private var subText: String? = null
     private var mainTextTag = getString(R.string.AlertFragmentMainText)
@@ -26,19 +28,22 @@ class AlertFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentAlertBinding = FragmentAlertBinding.inflate(inflater)
-        return fragmentAlertBinding.root
+        _binding = FragmentAlertBinding.inflate(inflater, container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         /* alert dialog with mainText and subText*/
-        fragmentAlertBinding.mainTextAlert.text = mainText
-        fragmentAlertBinding.subTextAlert.text = subText
+        binding.mainTextAlert.text = mainText
+        binding.subTextAlert.text = subText
 
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     companion object {
 
         @JvmStatic
