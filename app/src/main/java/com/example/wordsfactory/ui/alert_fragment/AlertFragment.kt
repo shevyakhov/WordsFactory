@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentAlertBinding
 
+private const val AlertFragmentMainText = "first"
+private const val AlertFragmentSubText = "second"
 
 class AlertFragment : DialogFragment() {
-    private var _binding: FragmentAlertBinding? =null
+    private var _binding: FragmentAlertBinding? = null
     private val binding get() = _binding!!
 
     private var mainText: String? = null
     private var subText: String? = null
-    private var mainTextTag = getString(R.string.AlertFragmentMainText)
-    private var subTextTag = getString(R.string.AlertFragmentSubText)
+    private var mainTextTag = AlertFragmentMainText
+    private var subTextTag = AlertFragmentSubText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,7 @@ class AlertFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAlertBinding.inflate(inflater, container,false)
+        _binding = FragmentAlertBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,10 +41,12 @@ class AlertFragment : DialogFragment() {
         binding.subTextAlert.text = subText
 
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
 
         @JvmStatic

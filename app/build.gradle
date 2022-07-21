@@ -25,12 +25,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", 'BASE_URL', "\"https://api.dictionaryapi.dev/api/v2/entries/en/\""
+            buildConfigField "String", 'VIDEO_URL', "\"https://learnenglish.britishcouncil.org/general-english/video-zone\""
         }
         debug {
             buildConfigField "String", 'BASE_URL', "\"https://api.dictionaryapi.dev/api/v2/entries/en/\""
+            buildConfigField "String", 'VIDEO_URL', "\"https://learnenglish.britishcouncil.org/general-english/video-zone\""
         }
         staging {
             buildConfigField "String", 'BASE_URL', "\"https://api.dictionaryapi.dev/api/v2/entries/en/\""
+            buildConfigField "String", 'VIDEO_URL', "\"https://learnenglish.britishcouncil.org/general-english/video-zone\""
         }
     }
     compileOptions {

@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.ActivityMainBinding
-import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
 import com.example.wordsfactory.dictionary_logic.repository.Injection
+import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
 import com.example.wordsfactory.ui.introduction_screens.intro.IntroFragment
 import com.example.wordsfactory.ui.navigation_fragments.PlaceHolderFragment
 
@@ -36,4 +36,5 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragmentHolder, PlaceHolderFragment.newInstance()).commit()
     }
+
 }

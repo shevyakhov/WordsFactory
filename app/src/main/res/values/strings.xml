@@ -36,7 +36,11 @@
     <string name="AlertFragmentMainText">first</string>
     <string name="AlertFragmentSubText">second</string>
     <string name="description">description</string>
+    <string name="forbiddenLink1">🚫 forbidden link 🚫</string>
+    <string name="forbiddenLink2">you can only navigate through Video Zone</string>
     <string name="save">Add to Dictionary</string>
+    <string name="back"><![CDATA[<]]></string>
+    <string name="forward"><![CDATA[>]]></string>
 
 
 </resources>

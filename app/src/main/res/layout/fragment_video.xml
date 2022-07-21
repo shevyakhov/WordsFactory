@@ -2,13 +2,34 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/inkGrey"
     android:layout_height="match_parent"
-   >
+    android:background="@color/inkGrey">
 
-    <TextView
+    <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="video" />
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:layout_gravity="start|top"
+        android:background="@null"
+        android:backgroundTint="@color/transparentWhite"
+        android:text="@string/back"
+        tools:ignore="RtlCompat" />
+    <Button
+        android:id="@+id/forwardBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:layout_gravity="end|top"
+        android:background="@null"
+        android:backgroundTint="@color/transparentWhite"
+        android:text="@string/forward"
+        tools:ignore="RtlCompat" />
+
 
 </FrameLayout>
