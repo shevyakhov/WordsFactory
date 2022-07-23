@@ -13,6 +13,10 @@ class AppRepository(
     private val wordDao: WordDao
 ) {
 
+    fun getEveryWord(): List<WordEntity>? {
+        return wordDao.getAll()
+    }
+
     fun searchDb(query: String): WordEntity? {
         return wordDao.findById(query)
     }
@@ -23,6 +27,10 @@ class AppRepository(
 
     fun saveUser(userEntity: UserEntity) {
         return wordDao.insertUser(userEntity)
+    }
+
+    fun updateLearningRate(wordEntity: WordEntity) {
+        wordDao.updateLearningRate(wordEntity)
     }
 
     fun saveToDb(item: WordEntity) {

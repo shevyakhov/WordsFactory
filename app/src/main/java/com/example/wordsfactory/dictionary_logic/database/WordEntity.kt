@@ -17,7 +17,9 @@ data class WordEntity(
     @ColumnInfo(name = WordEntityColumnInfoPartOfSpeech)
     var partOfSpeech: String,
     @ColumnInfo(name = WordEntityColumnInfoMeanings)
-    var meanings: List<WordItem>
+    var meanings: List<WordItem>,
+    @ColumnInfo(name = LearningRate)
+    var learningRate: Int = 0
 ) {
     companion object {
         const val WordEntityColumnInfoWord = "word"
@@ -25,6 +27,7 @@ data class WordEntity(
         const val WordEntityColumnInfoSound = "soundUrl"
         const val WordEntityColumnInfoPartOfSpeech = "partOfSpeech"
         const val WordEntityColumnInfoMeanings = "meanings"
+        const val LearningRate = "learning rate"
     }
 }
 

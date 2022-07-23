@@ -53,9 +53,19 @@ class AppViewModel(private val repository: AppRepository) : ViewModel() {
         repository.saveToDb(item)
     }
 
+    fun updateDb(list: List<WordEntity>) {
+        for (i in list) {
+            repository.updateLearningRate(i)
+        }
+    }
+
     /*check if word was saved*/
     fun checkDbForWord(item: String): WordEntity? {
         return repository.searchDb(item)
+    }
+
+    fun getAllWordsFromDB(): List<WordEntity>? {
+        return repository.getEveryWord()
     }
 }
 
