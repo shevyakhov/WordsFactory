@@ -48,14 +48,23 @@ class PlaceHolderFragment : Fragment() {
                 .build()
         val navController =
             (childFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.questionsFragment) {
+                bottomNavigationView.visibility = View.GONE
+            } else {
+                bottomNavigationView.visibility = View.VISIBLE
+            }
+        }
         bottomNavigationView.setupWithNavController(navController)
 
 
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         @JvmStatic
         fun newInstance() = PlaceHolderFragment()

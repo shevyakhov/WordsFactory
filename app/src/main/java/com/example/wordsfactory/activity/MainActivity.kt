@@ -9,10 +9,10 @@ import com.example.wordsfactory.dictionary_logic.repository.Injection
 import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
 import com.example.wordsfactory.ui.introduction_screens.intro.IntroFragment
 import com.example.wordsfactory.ui.navigation_fragments.PlaceHolderFragment
+import com.example.wordsfactory.ui.navigation_fragments.training.questions.QuestionsFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appViewModel: AppViewModel
-
     private lateinit var activityMainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,5 +36,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragmentHolder, PlaceHolderFragment.newInstance()).commit()
     }
+
 
 }
