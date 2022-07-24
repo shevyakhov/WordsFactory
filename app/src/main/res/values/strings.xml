@@ -45,6 +45,17 @@
     <string name="thereAre">There are</string>
     <string name="wordsInDictionary">words in your Dictionary.</string>
     <string name="start_the_training">Start the Training?</string>
+    <string name="_5">5</string>
+    <string name="_4">4</string>
+    <string name="_3">3</string>
+    <string name="_2">2</string>
+    <string name="_1">1</string>
+    <string name="_GO">GO!</string>
+    <string name="orange">#FFE3562A</string>
+    <string name="blue">#65AAEA</string>
+    <string name="green">#5BA092</string>
+    <string name="yellow">#F2A03F</string>
+    <string name="red">#EF4949</string>
 
 
 </resources>
