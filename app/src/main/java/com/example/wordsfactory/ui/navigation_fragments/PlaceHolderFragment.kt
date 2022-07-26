@@ -49,7 +49,7 @@ class PlaceHolderFragment : Fragment() {
         val navController =
             (childFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.questionsFragment) {
+            if (destination.id == R.id.questionsFragment || destination.id == R.id.resultFragment) {
                 bottomNavigationView.visibility = View.GONE
             } else {
                 bottomNavigationView.visibility = View.VISIBLE
