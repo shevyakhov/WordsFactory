@@ -22,6 +22,13 @@ import com.example.wordsfactory.databinding.FragmentTrainingBinding
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.repository.Injection
 import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
+import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.basicDuration
+import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.equalPartDivider
+import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.numberRange
+import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.ofIntFrom
+import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.ofIntTo
+import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.smallDuration
+import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.startColoringStringIndex
 import com.example.wordsfactory.ui.navigation_fragments.training.questions.QuestionsFragment
 
 
@@ -54,8 +61,8 @@ class TrainingFragment : Fragment() {
         binding.howManyWordsText.text = wordListSize?.let { trainingViewModel.getText(it) }
 
         binding.howManyWordsText.setColouredSpan(
-            10,
-            10 + (wordListSize?.toString()?.length ?: 0)
+            startColoringStringIndex,
+            startColoringStringIndex + (wordListSize?.toString()?.length ?: 0)
         )
 
         binding.startBtn.setOnClickListener {
@@ -76,6 +83,7 @@ class TrainingFragment : Fragment() {
         }
 
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         animatorSet.apply {
@@ -113,7 +121,7 @@ class TrainingFragment : Fragment() {
                 requireContext().getColor(R.color.animRed),
                 requireContext().getColor(R.color.primaryOrange)
             ).apply {
-                duration = 6000
+                duration = basicDuration
                 addUpdateListener {
                     val color = it.animatedValue as Int
                     binding.progressBar.setIndicatorColor(color)
@@ -121,19 +129,19 @@ class TrainingFragment : Fragment() {
                 }
             }
 
-            val animatorProgress = ValueAnimator.ofInt(0, 100).apply {
-                duration = 6000
+            val animatorProgress = ValueAnimator.ofInt(ofIntFrom, ofIntTo).apply {
+                duration = basicDuration
                 addUpdateListener {
                     binding.progressBar.progress = it.animatedValue as Int
-                    val ind = it.animatedValue as Int / 20
-                    if (ind in 0..5) {
+                    val ind = it.animatedValue as Int / equalPartDivider
+                    if (ind in numberRange) {
                         binding.countDown.text = list[ind].text
                     }
                 }
             }
 
-            val animatorDelayer = ValueAnimator.ofInt(0, 100).apply {
-                duration = 500
+            val animatorDelayer = ValueAnimator.ofInt(ofIntFrom, ofIntTo).apply {
+                duration = smallDuration
             }
 
             animatorSet = AnimatorSet().apply {
@@ -142,26 +150,50 @@ class TrainingFragment : Fragment() {
             }
 
             animatorSet.doOnEnd {
-                findNavController().navigate(
-                    R.id.action_trainingFragment_to_questionsFragment,
-                    bundleOf(QuestionsFragment.WORDS to wordList)
-                )
+                navigateToQuestionsFragment(wordList)
             }
         } else {
-            animatorSet.apply {
-                removeAllListeners()
-                end()
-                cancel()
-            }
-            binding.timer.visibility = View.INVISIBLE
-            binding.startBtn.text = getText(R.string.start)
+            cancelAnimatorSet()
+            setStartingState()
+        }
+    }
 
+    private fun navigateToQuestionsFragment(wordList: List<WordEntity>?) {
+        findNavController().navigate(
+            R.id.action_trainingFragment_to_questionsFragment,
+            bundleOf(QuestionsFragment.WORDS to wordList)
+        )
+    }
+
+    private fun setStartingState() {
+        binding.apply {
+            timer.visibility = View.INVISIBLE
+            startBtn.text = getText(R.string.start)
+        }
+    }
+
+    private fun cancelAnimatorSet() {
+        animatorSet.apply {
+            removeAllListeners()
+            end()
+            cancel()
         }
     }
 
     data class AnimationPair(val color: String, val text: String)
 
     companion object {
+
         var CHANGED_LIST: String = "CHANGED_LIST"
+    }
+
+    private object ConstHelper {
+        val numberRange = 0..5
+        const val startColoringStringIndex = 10
+        const val equalPartDivider = 20
+        const val ofIntFrom = 0
+        const val ofIntTo = 100
+        const val smallDuration: Long = 500
+        const val basicDuration: Long = 6000
     }
 }
