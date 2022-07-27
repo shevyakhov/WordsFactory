@@ -59,7 +59,7 @@ class TrainingFragment : Fragment() {
         )
 
         binding.startBtn.setOnClickListener {
-            if (wordListSize != 0) {
+            if (wordListSize != 0 && wordListSize != null) {
                 val pairList = listOf(
                     AnimationPair(getString(R.string.orange), getString(R.string._5)),
                     AnimationPair(getString(R.string.blue), getString(R.string._4)),
@@ -76,9 +76,13 @@ class TrainingFragment : Fragment() {
         }
 
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
+        animatorSet.apply {
+            removeAllListeners()
+            end()
+            cancel()
+        }
         _binding = null
     }
 
@@ -155,10 +159,9 @@ class TrainingFragment : Fragment() {
         }
     }
 
-    // TODO: cancel animation on cancel
     data class AnimationPair(val color: String, val text: String)
 
-    companion object{
+    companion object {
         var CHANGED_LIST: String = "CHANGED_LIST"
     }
 }
