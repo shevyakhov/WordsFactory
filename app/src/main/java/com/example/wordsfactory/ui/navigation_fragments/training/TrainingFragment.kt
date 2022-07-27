@@ -157,4 +157,8 @@ class TrainingFragment : Fragment() {
 
     // TODO: cancel animation on cancel
     data class AnimationPair(val color: String, val text: String)
+
+    companion object{
+        var CHANGED_LIST: String = "CHANGED_LIST"
+    }
 }

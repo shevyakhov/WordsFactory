@@ -54,6 +54,7 @@ class PlaceHolderFragment : Fragment() {
             } else {
                 bottomNavigationView.visibility = View.VISIBLE
             }
+
         }
         bottomNavigationView.setupWithNavController(navController)
 
