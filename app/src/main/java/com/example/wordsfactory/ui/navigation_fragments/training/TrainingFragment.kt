@@ -143,5 +143,6 @@ class TrainingFragment : Fragment() {
         }
     }
 
+    // TODO: cancel animation on cancel
     data class AnimationPair(val color: String, val text: String)
 }

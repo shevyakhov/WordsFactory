@@ -32,5 +32,17 @@
         <action
             android:id="@+id/action_questionsFragment_to_trainingFragment"
             app:destination="@id/trainingFragment" />
+        <action
+            android:id="@+id/action_questionsFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.wordsfactory.ui.navigation_fragments.training.questions.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_trainingFragment"
+            app:destination="@id/trainingFragment" />
     </fragment>
 </navigation>
