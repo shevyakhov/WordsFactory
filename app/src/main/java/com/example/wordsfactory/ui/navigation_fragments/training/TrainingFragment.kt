@@ -29,6 +29,7 @@ class TrainingFragment : Fragment() {
     private var wordListSize: Int? = null
     private var _binding: FragmentTrainingBinding? = null
     private val binding get() = _binding!!
+    private var animatorSet = AnimatorSet()
     private lateinit var appViewModel: AppViewModel
     private lateinit var trainingViewModel: TrainingViewModel
 
@@ -97,49 +98,60 @@ class TrainingFragment : Fragment() {
     }
 
     private fun timerAnimation(list: List<AnimationPair>, wordList: List<WordEntity>?) {
-        binding.timer.visibility = View.VISIBLE
-
-        val animator = ValueAnimator.ofArgb(
-            requireContext().getColor(R.color.primaryOrange),
-            requireContext().getColor(R.color.animBlue),
-            requireContext().getColor(R.color.animYellow),
-            requireContext().getColor(R.color.animGreen),
-            requireContext().getColor(R.color.animRed),
-            requireContext().getColor(R.color.primaryOrange)
-        ).apply {
-            duration = 6000
-            addUpdateListener {
-                val color = it.animatedValue as Int
-                binding.progressBar.setIndicatorColor(color)
-                binding.countDown.setTextColor(color)
-            }
-        }
-
-        val animatorProgress = ValueAnimator.ofInt(0, 100).apply {
-            duration = 6000
-            addUpdateListener {
-                binding.progressBar.progress = it.animatedValue as Int
-                val ind = it.animatedValue as Int / 20
-                if (ind in 0..5) {
-                    binding.countDown.text = list[ind].text
+        if (!animatorSet.isRunning) {
+            binding.timer.visibility = View.VISIBLE
+            binding.startBtn.text = getText(R.string.cancel)
+            val animator = ValueAnimator.ofArgb(
+                requireContext().getColor(R.color.primaryOrange),
+                requireContext().getColor(R.color.animBlue),
+                requireContext().getColor(R.color.animYellow),
+                requireContext().getColor(R.color.animGreen),
+                requireContext().getColor(R.color.animRed),
+                requireContext().getColor(R.color.primaryOrange)
+            ).apply {
+                duration = 6000
+                addUpdateListener {
+                    val color = it.animatedValue as Int
+                    binding.progressBar.setIndicatorColor(color)
+                    binding.countDown.setTextColor(color)
                 }
             }
-        }
 
-        val animatorDelayer = ValueAnimator.ofInt(0, 100).apply {
-            duration = 500
-        }
+            val animatorProgress = ValueAnimator.ofInt(0, 100).apply {
+                duration = 6000
+                addUpdateListener {
+                    binding.progressBar.progress = it.animatedValue as Int
+                    val ind = it.animatedValue as Int / 20
+                    if (ind in 0..5) {
+                        binding.countDown.text = list[ind].text
+                    }
+                }
+            }
 
-        val animatorSet = AnimatorSet().apply {
-            play(animator).with(animatorProgress).before(animatorDelayer)
-            start()
-        }
+            val animatorDelayer = ValueAnimator.ofInt(0, 100).apply {
+                duration = 500
+            }
 
-        animatorSet.doOnEnd {
-            findNavController().navigate(
-                R.id.action_trainingFragment_to_questionsFragment,
-                bundleOf(QuestionsFragment.WORDS to wordList)
-            )
+            animatorSet = AnimatorSet().apply {
+                play(animator).with(animatorProgress).before(animatorDelayer)
+                start()
+            }
+
+            animatorSet.doOnEnd {
+                findNavController().navigate(
+                    R.id.action_trainingFragment_to_questionsFragment,
+                    bundleOf(QuestionsFragment.WORDS to wordList)
+                )
+            }
+        } else {
+            animatorSet.apply {
+                removeAllListeners()
+                end()
+                cancel()
+            }
+            binding.timer.visibility = View.INVISIBLE
+            binding.startBtn.text = getText(R.string.start)
+
         }
     }
 

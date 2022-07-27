@@ -56,6 +56,7 @@
     <string name="green">#5BA092</string>
     <string name="yellow">#F2A03F</string>
     <string name="red">#EF4949</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>
