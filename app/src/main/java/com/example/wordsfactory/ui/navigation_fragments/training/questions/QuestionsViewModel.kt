@@ -6,19 +6,13 @@ import com.example.wordsfactory.dictionary_logic.database.WordEntity
 class QuestionsViewModel : ViewModel() {
 
     private lateinit var fullList: List<WordEntity>
-    private lateinit var currentWord: WordEntity
+    private lateinit var constList: List<WordEntity>
     private lateinit var currentQuestion: Question
+    private var rightCount = 0
     private lateinit var questionList: List<Question>
     fun passList(fullList: List<WordEntity>) {
         this.fullList = fullList
-    }
-
-    fun setCurrentWord(word: WordEntity) {
-        currentWord = word
-    }
-
-    fun getCurrentWord(): WordEntity {
-        return currentWord
+        constList = this.fullList
     }
 
     fun getCurrentQuestion(number: Int): Question {
@@ -36,8 +30,13 @@ class QuestionsViewModel : ViewModel() {
             val meaning = i.meanings.random().definition
             val answerList = ArrayList<String>()
             answerList.add(i.word)
-            for (j in tempList.shuffled().take(2)) {
-                answerList.add(j.word)
+            if (tempList.size >= 2) {
+                for (j in tempList.shuffled().take(2)) {
+                    answerList.add(j.word)
+                }
+            } else {
+                answerList.add("reading")
+                answerList.add("cooking")
             }
             list.add(Question(question = meaning, answers = answerList.shuffled(), truth = i.word))
         }
@@ -45,12 +44,17 @@ class QuestionsViewModel : ViewModel() {
 
     }
 
-    fun fullList() = fullList
+    fun result() =
+        fullList.filter { it.learningRate != constList.find { constWord -> constWord.word == it.word }?.learningRate }
+    // might return empty list, not quite sure, needs checking
+
+    fun rightCount() = rightCount
 
     fun checkTheAnswer(clickedBtn: Int): Boolean {
         if (clickedBtn != -1) {
             if (currentQuestion.answers[clickedBtn - 1] == currentQuestion.truth) {
                 fullList.find { it.word == currentQuestion.truth }?.learningRate = 1
+                rightCount++
                 return true
             }
         }

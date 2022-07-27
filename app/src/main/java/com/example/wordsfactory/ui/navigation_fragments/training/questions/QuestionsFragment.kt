@@ -3,11 +3,11 @@ package com.example.wordsfactory.ui.navigation_fragments.training.questions
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.animation.doOnEnd
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -25,15 +25,12 @@ class QuestionsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.e("!!!!!", "onCreateView")
         _binding = FragmentQuestionsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("!!!!!", "onViewCreated")
-
         questionsViewModel = ViewModelProvider(this)[QuestionsViewModel::class.java]
 
         binding.backBtn.setOnClickListener {
@@ -89,10 +86,10 @@ class QuestionsFragment : Fragment() {
                     questionsViewModel.checkTheAnswer(NO_ANSWER_ID)
                     startQuestion(number + 1)
                 } else
-                    findNavController().navigate(R.id.action_questionsFragment_to_resultFragment)
+                    startResultFragment()
             }
         } else
-            findNavController().navigate(R.id.action_questionsFragment_to_resultFragment)
+            startResultFragment()
     }
 
     private fun setViewsByQuestion(questionNumber: Int, maximum: Int, question: Question) {
@@ -114,9 +111,19 @@ class QuestionsFragment : Fragment() {
         startQuestion(questionNumber)
     }
 
+    private fun startResultFragment() {
+        findNavController().navigate(
+            R.id.action_questionsFragment_to_resultFragment,
+            bundleOf(
+                ResultFragment.CHANGED_LIST to questionsViewModel.result(),
+                ResultFragment.RESULT to (questionsViewModel.rightCount() to questionSetSize)
+            )
+        )
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.e("res", questionsViewModel.fullList().map { it.learningRate }.joinToString(" "))
         questionNumber = 1
         questionSetSize = 0
         _binding = null
