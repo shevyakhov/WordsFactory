@@ -41,6 +41,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/timer"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/startTheTrainingText"
@@ -51,6 +52,7 @@
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBar"
             android:layout_width="200dp"
+
             android:layout_height="200dp"
             app:indicatorSize="150dp"
             app:layout_constraintBottom_toBottomOf="parent"
