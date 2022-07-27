@@ -1,7 +1,8 @@
-package com.example.wordsfactory.ui.navigation_fragments.training.questions
+package com.example.wordsfactory.ui.navigation_fragments.training.questions.view_model
 
 import androidx.lifecycle.ViewModel
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
+import com.example.wordsfactory.ui.navigation_fragments.training.questions.Question
 
 class QuestionsViewModel : ViewModel() {
 

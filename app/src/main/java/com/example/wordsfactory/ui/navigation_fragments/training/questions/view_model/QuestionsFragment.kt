@@ -1,4 +1,4 @@
-package com.example.wordsfactory.ui.navigation_fragments.training.questions
+package com.example.wordsfactory.ui.navigation_fragments.training.questions.view_model
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
@@ -14,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentQuestionsBinding
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
+import com.example.wordsfactory.ui.navigation_fragments.training.questions.Question
+import com.example.wordsfactory.ui.navigation_fragments.training.result.ResultFragment
 
 @Suppress("UNCHECKED_CAST")
 class QuestionsFragment : Fragment() {

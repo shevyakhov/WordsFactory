@@ -29,7 +29,7 @@ import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragmen
 import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.ofIntTo
 import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.smallDuration
 import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.startColoringStringIndex
-import com.example.wordsfactory.ui.navigation_fragments.training.questions.QuestionsFragment
+import com.example.wordsfactory.ui.navigation_fragments.training.questions.view_model.QuestionsFragment
 
 
 class TrainingFragment : Fragment() {

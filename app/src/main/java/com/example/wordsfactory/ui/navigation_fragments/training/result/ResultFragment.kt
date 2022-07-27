@@ -1,4 +1,4 @@
-package com.example.wordsfactory.ui.navigation_fragments.training.questions
+package com.example.wordsfactory.ui.navigation_fragments.training.result
 
 import android.os.Bundle
 import android.view.LayoutInflater

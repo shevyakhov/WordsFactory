@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_video" />
     <fragment
         android:id="@+id/questionsFragment"
-        android:name="com.example.wordsfactory.ui.navigation_fragments.training.questions.QuestionsFragment"
+        android:name="com.example.wordsfactory.ui.navigation_fragments.training.questions.view_model.QuestionsFragment"
         android:label="fragment_questions"
         tools:layout="@layout/fragment_questions" >
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.example.wordsfactory.ui.navigation_fragments.training.questions.ResultFragment"
+        android:name="com.example.wordsfactory.ui.navigation_fragments.training.result.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <action

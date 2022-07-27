@@ -9,7 +9,6 @@ import com.example.wordsfactory.dictionary_logic.repository.Injection
 import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
 import com.example.wordsfactory.ui.introduction_screens.intro.IntroFragment
 import com.example.wordsfactory.ui.navigation_fragments.PlaceHolderFragment
-import com.example.wordsfactory.ui.navigation_fragments.training.questions.QuestionsFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appViewModel: AppViewModel
