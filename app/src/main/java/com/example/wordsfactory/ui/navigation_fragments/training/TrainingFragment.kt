@@ -67,15 +67,7 @@ class TrainingFragment : Fragment() {
 
         binding.startBtn.setOnClickListener {
             if (wordListSize != 0 && wordListSize != null) {
-                val pairList = listOf(
-                    AnimationPair(getString(R.string.orange), getString(R.string._5)),
-                    AnimationPair(getString(R.string.blue), getString(R.string._4)),
-                    AnimationPair(getString(R.string.green), getString(R.string._3)),
-                    AnimationPair(getString(R.string.yellow), getString(R.string._2)),
-                    AnimationPair(getString(R.string.red), getString(R.string._1)),
-                    AnimationPair(getString(R.string.orange), getString(R.string._GO)),
-                )
-                timerAnimation(pairList, wordList)
+                timerAnimation(trainingViewModel.pairList(), wordList)
 
             } else
                 Toast.makeText(context, "add more words to start training", Toast.LENGTH_SHORT)
@@ -86,11 +78,7 @@ class TrainingFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        animatorSet.apply {
-            removeAllListeners()
-            end()
-            cancel()
-        }
+        cancelAnimatorSet()
         _binding = null
     }
 
@@ -111,16 +99,8 @@ class TrainingFragment : Fragment() {
 
     private fun timerAnimation(list: List<AnimationPair>, wordList: List<WordEntity>?) {
         if (!animatorSet.isRunning) {
-            binding.timer.visibility = View.VISIBLE
-            binding.startBtn.text = getText(R.string.cancel)
-            val animator = ValueAnimator.ofArgb(
-                requireContext().getColor(R.color.primaryOrange),
-                requireContext().getColor(R.color.animBlue),
-                requireContext().getColor(R.color.animYellow),
-                requireContext().getColor(R.color.animGreen),
-                requireContext().getColor(R.color.animRed),
-                requireContext().getColor(R.color.primaryOrange)
-            ).apply {
+            setRunningState()
+            val animatorColor = trainingViewModel.colorValueAnimator().apply {
                 duration = basicDuration
                 addUpdateListener {
                     val color = it.animatedValue as Int
@@ -145,7 +125,7 @@ class TrainingFragment : Fragment() {
             }
 
             animatorSet = AnimatorSet().apply {
-                play(animator).with(animatorProgress).before(animatorDelayer)
+                play(animatorColor).with(animatorProgress).before(animatorDelayer)
                 start()
             }
 
@@ -154,9 +134,10 @@ class TrainingFragment : Fragment() {
             }
         } else {
             cancelAnimatorSet()
-            setStartingState()
+            setReadyState()
         }
     }
+
 
     private fun navigateToQuestionsFragment(wordList: List<WordEntity>?) {
         findNavController().navigate(
@@ -165,7 +146,12 @@ class TrainingFragment : Fragment() {
         )
     }
 
-    private fun setStartingState() {
+    private fun setRunningState() {
+        binding.timer.visibility = View.VISIBLE
+        binding.startBtn.text = getText(R.string.cancel)
+    }
+
+    private fun setReadyState() {
         binding.apply {
             timer.visibility = View.INVISIBLE
             startBtn.text = getText(R.string.start)
@@ -174,8 +160,8 @@ class TrainingFragment : Fragment() {
 
     private fun cancelAnimatorSet() {
         animatorSet.apply {
+            binding.progressBar.progress = 0
             removeAllListeners()
-            end()
             cancel()
         }
     }
