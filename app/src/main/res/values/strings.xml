@@ -56,6 +56,10 @@
     <string name="green">#5BA092</string>
     <string name="yellow">#F2A03F</string>
     <string name="red">#EF4949</string>
+    <string name="training_is_finished">Training is finished</string>
+    <string name="again">Again</string>
+    <string name="correct">Correct:</string>
+    <string name="incorrect">Incorrect:</string>
 
 
 </resources>

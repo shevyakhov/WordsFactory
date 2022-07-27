@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.navigation_fragments.training.questions.ResultFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_above="@+id/trainingIsFinishedText"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/description"
+        android:scaleType="center"
+        android:src="@drawable/kid_wheel" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/trainingIsFinishedText"
+        style="@style/mainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/correctNumberText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:text="@string/training_is_finished" />
+
+    <TextView
+        android:id="@+id/correctNumberText"
+        style="@style/subText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/incorrectNumberText"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="15dp"
+        android:text="@string/correct" />
+
+    <TextView
+        android:id="@+id/incorrectNumberText"
+        style="@style/subText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/againButton"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="40dp"
+        android:text="@string/incorrect" />
+
+    <Button
+        android:id="@+id/againButton"
+        style="@style/mainBtn"
+        android:layout_width="311dp"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/main_btn"
+        android:text="@string/again"
+        app:backgroundTint="@null" />
+
+</RelativeLayout>
