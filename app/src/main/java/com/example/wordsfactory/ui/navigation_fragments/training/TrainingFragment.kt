@@ -168,11 +168,6 @@ class TrainingFragment : Fragment() {
 
     data class AnimationPair(val color: String, val text: String)
 
-    companion object {
-
-        var CHANGED_LIST: String = "CHANGED_LIST"
-    }
-
     private object ConstHelper {
         val numberRange = 0..5
         const val startColoringStringIndex = 10

@@ -1,19 +1,22 @@
 package com.example.wordsfactory.ui.navigation_fragments.training.result
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentResultBinding
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
-import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment
+import com.example.wordsfactory.dictionary_logic.repository.Injection
 
 @Suppress("UNCHECKED_CAST")
 class ResultFragment : Fragment() {
+    private lateinit var resultViewModel: ResultViewModel
 
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding!!
@@ -27,17 +30,21 @@ class ResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val changedList: List<WordEntity> =
-            requireArguments().get(CHANGED_LIST) as List<WordEntity>
+        resultViewModel = ViewModelProvider(this, Injection.provideFactoryResult(requireContext()))
+            .get(ResultViewModel::class.java)
+
+        val changedList: List<WordEntity> = requireArguments().get(CHANGED_LIST) as List<WordEntity>
         val result = requireArguments().get(RESULT) as Pair<Int, Int>
 
+        Log.e("list", changedList.map { it.word }.joinToString(" "))
+        resultViewModel.updateDb(changedList)
+        val learnData = resultViewModel.getLearnedCount()
+        Toast.makeText(context, "${learnData.first} ${learnData.second}", Toast.LENGTH_SHORT).show()
         binding.correctNumberText.text = getString(R.string.correct) + result.first
         binding.incorrectNumberText.text =
             getString(R.string.incorrect) + (result.second - result.first)
         binding.againButton.setOnClickListener {
-            findNavController().navigate(R.id.action_resultFragment_to_trainingFragment).apply {
-                bundleOf(TrainingFragment.CHANGED_LIST to changedList)
-            }
+            findNavController().navigate(R.id.action_resultFragment_to_trainingFragment)
         }
     }
 

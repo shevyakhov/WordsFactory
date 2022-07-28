@@ -59,6 +59,20 @@ class AppViewModel(private val repository: AppRepository) : ViewModel() {
         }
     }
 
+    fun getLearnedCount(): Pair<Int, Int> {
+        var learned = 0
+        val list = getAllWordsFromDB()
+        if (list != null) {
+            for (i in list) {
+                if (i.learningRate == 1) {
+                    learned++
+                }
+            }
+            return learned to list.size
+        }
+        return 0 to 0
+    }
+
     /*check if word was saved*/
     fun checkDbForWord(item: String): WordEntity? {
         return repository.searchDb(item)
