@@ -1,4 +1,4 @@
-package com.example.wordsfactory.ui.navigation_fragments.training
+package com.example.wordsfactory.ui.navigation_fragments.training.training
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
@@ -22,13 +22,13 @@ import com.example.wordsfactory.databinding.FragmentTrainingBinding
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.repository.Injection
 import com.example.wordsfactory.dictionary_logic.repository.app_viewmodel.AppViewModel
-import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.basicDuration
-import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.equalPartDivider
-import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.numberRange
-import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.ofIntFrom
-import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.ofIntTo
-import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.smallDuration
-import com.example.wordsfactory.ui.navigation_fragments.training.TrainingFragment.ConstHelper.startColoringStringIndex
+import com.example.wordsfactory.ui.navigation_fragments.training.training.TrainingFragment.ConstHelper.basicDuration
+import com.example.wordsfactory.ui.navigation_fragments.training.training.TrainingFragment.ConstHelper.equalPartDivider
+import com.example.wordsfactory.ui.navigation_fragments.training.training.TrainingFragment.ConstHelper.numberRange
+import com.example.wordsfactory.ui.navigation_fragments.training.training.TrainingFragment.ConstHelper.ofIntFrom
+import com.example.wordsfactory.ui.navigation_fragments.training.training.TrainingFragment.ConstHelper.ofIntTo
+import com.example.wordsfactory.ui.navigation_fragments.training.training.TrainingFragment.ConstHelper.smallDuration
+import com.example.wordsfactory.ui.navigation_fragments.training.training.TrainingFragment.ConstHelper.startColoringStringIndex
 import com.example.wordsfactory.ui.navigation_fragments.training.questions.QuestionsFragment
 
 

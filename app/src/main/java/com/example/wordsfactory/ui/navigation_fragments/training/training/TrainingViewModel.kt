@@ -1,4 +1,4 @@
-package com.example.wordsfactory.ui.navigation_fragments.training
+package com.example.wordsfactory.ui.navigation_fragments.training.training
 
 import android.animation.ValueAnimator
 import android.app.Application
