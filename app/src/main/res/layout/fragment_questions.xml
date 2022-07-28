@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.navigation_fragments.training.questions.view_model.QuestionsFragment">
+    tools:context=".ui.navigation_fragments.training.questions.QuestionsFragment">
 
     <Button
         android:id="@+id/backBtn"

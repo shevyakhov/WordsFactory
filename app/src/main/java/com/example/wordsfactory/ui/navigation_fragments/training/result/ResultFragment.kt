@@ -36,9 +36,11 @@ class ResultFragment : Fragment() {
         val changedList: List<WordEntity> = requireArguments().get(CHANGED_LIST) as List<WordEntity>
         val result = requireArguments().get(RESULT) as Pair<Int, Int>
 
-        Log.e("list", changedList.map { it.word }.joinToString(" "))
+
         resultViewModel.updateDb(changedList)
         val learnData = resultViewModel.getLearnedCount()
+        Log.e("list", changedList.map { it.word }.joinToString(" "))
+        Log.e("list", resultViewModel.getWordLr())
         Toast.makeText(context, "${learnData.first} ${learnData.second}", Toast.LENGTH_SHORT).show()
         binding.correctNumberText.text = getString(R.string.correct) + result.first
         binding.incorrectNumberText.text =

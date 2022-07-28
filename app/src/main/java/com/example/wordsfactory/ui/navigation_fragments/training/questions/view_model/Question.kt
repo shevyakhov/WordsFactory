@@ -1,4 +1,4 @@
-package com.example.wordsfactory.ui.navigation_fragments.training.questions
+package com.example.wordsfactory.ui.navigation_fragments.training.questions.view_model
 
 data class Question(
     val question: String,

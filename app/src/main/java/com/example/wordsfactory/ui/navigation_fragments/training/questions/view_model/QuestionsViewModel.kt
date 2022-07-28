@@ -2,7 +2,6 @@ package com.example.wordsfactory.ui.navigation_fragments.training.questions.view
 
 import androidx.lifecycle.ViewModel
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
-import com.example.wordsfactory.ui.navigation_fragments.training.questions.Question
 
 class QuestionsViewModel : ViewModel() {
 
@@ -45,8 +44,16 @@ class QuestionsViewModel : ViewModel() {
 
     }
 
-    fun result() =
-        fullList.filter { it.learningRate != constList.find { constWord -> constWord.word == it.word }?.learningRate }
+    fun result(): List<WordEntity> {
+        val result = ArrayList<WordEntity>()
+        for (i in fullList) {
+            val beforeWord = constList.find { it.word == i.word }
+            if (i.word == beforeWord?.word || i.learningRate != beforeWord?.learningRate) {
+                result.add(i)
+            }
+        }
+        return result
+    }
     // might return empty list, not quite sure, needs checking
 
     fun rightCount() = rightCount

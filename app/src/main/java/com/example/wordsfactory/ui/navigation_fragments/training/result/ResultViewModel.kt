@@ -27,6 +27,17 @@ class ResultViewModel(private val repository: AppRepository) : ViewModel() {
         return 0 to 0
     }
 
+    fun getWordLr(): String {
+        val result = ArrayList<Pair<String, Int>>()
+        val list = getAllWordsFromDB()
+        if (list != null) {
+            for (i in list) {
+                result.add(i.word to i.learningRate)
+            }
+        }
+        return result.joinToString(" | ")
+    }
+
 
     private fun getAllWordsFromDB(): List<WordEntity>? {
         return repository.getEveryWord()
