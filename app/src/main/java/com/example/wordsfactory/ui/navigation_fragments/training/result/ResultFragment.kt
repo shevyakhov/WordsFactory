@@ -1,11 +1,9 @@
 package com.example.wordsfactory.ui.navigation_fragments.training.result
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -38,10 +36,6 @@ class ResultFragment : Fragment() {
 
 
         resultViewModel.updateDb(changedList)
-        val learnData = resultViewModel.getLearnedCount()
-        Log.e("list", changedList.map { it.word }.joinToString(" "))
-        Log.e("list", resultViewModel.getWordLr())
-        Toast.makeText(context, "${learnData.first} ${learnData.second}", Toast.LENGTH_SHORT).show()
         binding.correctNumberText.text = getString(R.string.correct) + result.first
         binding.incorrectNumberText.text =
             getString(R.string.incorrect) + (result.second - result.first)

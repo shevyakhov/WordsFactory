@@ -43,8 +43,7 @@ class QuestionsFragment : Fragment() {
             findNavController().navigate(R.id.action_questionsFragment_to_trainingFragment)
         }
         val fullList: List<WordEntity> = requireArguments().get(WORDS) as List<WordEntity>
-        val questionSet = fullList.sortedBy { it.learningRate }.shuffled().take(10)
-
+        val questionSet = fullList.sortedBy { it.learningRate }.take(10).shuffled()
         createQuiz(fullList, questionSet)
         startQuestion(questionNumber)
 
@@ -75,7 +74,7 @@ class QuestionsFragment : Fragment() {
                 addUpdateListener {
                     binding.progressBar.progress = it.animatedValue as Int
                 }
-                duration = 5000
+                duration = QUESTION_DURATION
             }
 
             animatorSet.apply {
@@ -139,6 +138,7 @@ class QuestionsFragment : Fragment() {
         private var THIRD_BUTTON_ID = 3
         private var questionNumber = 1
         private var questionSetSize = 0
+        private var QUESTION_DURATION: Long = 7000
         var WORDS: String = "words"
     }
 }
