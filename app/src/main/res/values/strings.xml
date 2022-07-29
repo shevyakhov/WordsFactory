@@ -61,4 +61,9 @@
     <string name="correct">Correct:</string>
     <string name="incorrect">Incorrect:</string>
     <string name="cancel">Cancel</string>
+    <string name="my_dictionary">My Dictionary</string>
+    <string name="i_already_remember">I already remember</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>
