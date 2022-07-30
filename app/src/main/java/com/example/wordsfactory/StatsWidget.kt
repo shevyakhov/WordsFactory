@@ -27,6 +27,7 @@ class StatsWidget : AppWidgetProvider() {
     override fun onDisabled(context: Context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
 }
 
 internal fun updateAppWidget(
