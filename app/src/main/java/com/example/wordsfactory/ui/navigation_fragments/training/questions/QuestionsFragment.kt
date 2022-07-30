@@ -45,7 +45,8 @@ class QuestionsFragment : Fragment() {
         }
         val fullList: List<WordEntity> = requireArguments().get(WORDS) as List<WordEntity>
 
-        val questionSet = fullList.sortedBy { it.learningRate }.take(10).shuffled()
+
+        val questionSet = makeQuestionSet(fullList)
         createQuiz(fullList, questionSet)
         startQuestion(questionNumber)
 
@@ -60,9 +61,26 @@ class QuestionsFragment : Fragment() {
         }
     }
 
-    private fun createQuiz(fullList: List<WordEntity>, questionSet: List<WordEntity>) {
+    private fun makeQuestionSet(list: List<WordEntity>): List<WordEntity> {
+        val set = ArrayList<WordEntity>()
+        val notLearned =
+            list.filter { it.learningRate == -1 || it.learningRate == 0 }.shuffled().take(10)
+        val learned = list.filter { it.learningRate == 1 }.shuffled().take(10)
+        if (notLearned.size == 10) {
+            return notLearned
+        } else {
+            set.addAll(notLearned)
+            for (i in 1..10 - set.size) {
+                set.add(learned[i - 1])
+            }
+            return set
+        }
+    }
+
+
+    private fun createQuiz(list: List<WordEntity>, questionSet: List<WordEntity>) {
         questionsViewModel.apply {
-            passList(fullList)
+            passList(list)
             createQuestions(questionSet)
             questionSetSize = questionSet.size
         }
