@@ -2,6 +2,7 @@ package com.example.wordsfactory.ui.navigation_fragments.training.questions.view
 
 import androidx.lifecycle.ViewModel
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
+import com.example.wordsfactory.ui.navigation_fragments.training.questions.QuestionsFragment
 
 class QuestionsViewModel : ViewModel() {
 
@@ -42,6 +43,28 @@ class QuestionsViewModel : ViewModel() {
         }
         questionList = list.shuffled()
 
+    }
+
+    fun makeQuestionSet(list: List<WordEntity>): List<WordEntity> {
+        val set = ArrayList<WordEntity>()
+        val notLearned =
+            list.filter { it.learningRate == -1 || it.learningRate == 0 }.shuffled().take(10)
+        val learned = list.filter { it.learningRate == 1 }.shuffled().take(10)
+        if (notLearned.size == 10) {
+            return notLearned
+        } else {
+            set.addAll(notLearned)
+            for (i in 1..10 - set.size) {
+                set.add(learned[i - 1])
+            }
+            return set
+        }
+    }
+
+    internal fun createQuiz(list: List<WordEntity>, questionSet: List<WordEntity>) {
+        passList(list)
+        createQuestions(questionSet)
+        QuestionsFragment.questionSetSize = questionSet.size
     }
 
     fun result(): List<WordEntity> {

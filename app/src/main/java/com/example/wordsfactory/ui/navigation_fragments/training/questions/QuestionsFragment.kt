@@ -46,8 +46,8 @@ class QuestionsFragment : Fragment() {
         val fullList: List<WordEntity> = requireArguments().get(WORDS) as List<WordEntity>
 
 
-        val questionSet = makeQuestionSet(fullList)
-        createQuiz(fullList, questionSet)
+        val questionSet = questionsViewModel.makeQuestionSet(fullList)
+        questionsViewModel.createQuiz(fullList, questionSet)
         startQuestion(questionNumber)
 
         binding.firstAnswer.setOnClickListener {
@@ -61,30 +61,6 @@ class QuestionsFragment : Fragment() {
         }
     }
 
-    private fun makeQuestionSet(list: List<WordEntity>): List<WordEntity> {
-        val set = ArrayList<WordEntity>()
-        val notLearned =
-            list.filter { it.learningRate == -1 || it.learningRate == 0 }.shuffled().take(10)
-        val learned = list.filter { it.learningRate == 1 }.shuffled().take(10)
-        if (notLearned.size == 10) {
-            return notLearned
-        } else {
-            set.addAll(notLearned)
-            for (i in 1..10 - set.size) {
-                set.add(learned[i - 1])
-            }
-            return set
-        }
-    }
-
-
-    private fun createQuiz(list: List<WordEntity>, questionSet: List<WordEntity>) {
-        questionsViewModel.apply {
-            passList(list)
-            createQuestions(questionSet)
-            questionSetSize = questionSet.size
-        }
-    }
 
     private fun startQuestion(number: Int) {
         if (number <= questionSetSize) {
@@ -158,7 +134,7 @@ class QuestionsFragment : Fragment() {
         private var SECOND_BUTTON_ID = 2
         private var THIRD_BUTTON_ID = 3
         private var questionNumber = 1
-        private var questionSetSize = 0
+        var questionSetSize = 0
         private var QUESTION_DURATION: Long = 7000
         var WORDS: String = "words"
     }
