@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.wordsfactory.R
-import com.example.wordsfactory.StatsWidget
 import com.example.wordsfactory.databinding.FragmentResultBinding
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.repository.Injection
+import com.example.wordsfactory.widget.StatsWidget
 
 
 @Suppress("UNCHECKED_CAST")
