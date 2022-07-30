@@ -29,12 +29,18 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int
 ) {
-    val widgetText = "10 Words"
     // Construct the RemoteViews object
-    val views = RemoteViews(context.packageName, R.layout.stats_widget)
-    views.setTextViewText(R.id.appwidget_text_my_dictionary_stats, widgetText)
-    views.setTextViewText(R.id.appwidget_text_remember_stats, widgetText)
+    val sharedPrefsKey = "SHARED_PREFS"
+    val learnedKey = "SHARED_PREFS_LEARNED"
+    val allKey = "SHARED_PREFS_ALL"
 
+    val sharedPrefs = context.getSharedPreferences(sharedPrefsKey, 0)
+    val learned = sharedPrefs.getInt(learnedKey, 0)
+    val all = sharedPrefs.getInt(allKey, 0)
+    val textConstructor = { value: Int -> "$value Words" }
+    val views = RemoteViews(context.packageName, R.layout.stats_widget)
+    views.setTextViewText(R.id.appwidget_text_my_dictionary_stats, textConstructor.invoke(all))
+    views.setTextViewText(R.id.appwidget_text_remember_stats, textConstructor.invoke(learned))
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }

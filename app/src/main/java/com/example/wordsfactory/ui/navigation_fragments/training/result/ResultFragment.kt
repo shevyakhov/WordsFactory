@@ -3,6 +3,7 @@ package com.example.wordsfactory.ui.navigation_fragments.training.result
 import android.annotation.SuppressLint
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +23,6 @@ import com.example.wordsfactory.widget.StatsWidget
 @Suppress("UNCHECKED_CAST")
 class ResultFragment : Fragment() {
     private lateinit var resultViewModel: ResultViewModel
-
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -44,7 +44,8 @@ class ResultFragment : Fragment() {
         val result = requireArguments().get(RESULT) as Pair<Int, Int>
 
         resultViewModel.updateDb(changedList)
-
+        val stats = resultViewModel.getStatistics()
+        saveData(stats.first, stats.second)
         showTrainingResult(result)
         updateWidget()
 
@@ -77,12 +78,23 @@ class ResultFragment : Fragment() {
         Log.e("done", "done")
     }
 
+    private fun saveData(learned: Int, all: Int) {
+        val sharedPreferences = this.activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
+        editor?.putInt(SHARED_PREFS_LEARNED, learned)
+        editor?.putInt(SHARED_PREFS_ALL, all)
+        editor?.apply()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     companion object {
+        private const val SHARED_PREFS = "SHARED_PREFS"
+        private const val SHARED_PREFS_LEARNED = "SHARED_PREFS_LEARNED"
+        private const val SHARED_PREFS_ALL = "SHARED_PREFS_ALL"
         var CHANGED_LIST: String = "CHANGED_LIST"
         var RESULT: String = "result"
     }
