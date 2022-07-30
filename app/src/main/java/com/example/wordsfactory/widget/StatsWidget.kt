@@ -1,9 +1,10 @@
-package com.example.wordsfactory
+package com.example.wordsfactory.widget
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.widget.RemoteViews
+import com.example.wordsfactory.R
 
 /**
  * Implementation of App Widget functionality.
