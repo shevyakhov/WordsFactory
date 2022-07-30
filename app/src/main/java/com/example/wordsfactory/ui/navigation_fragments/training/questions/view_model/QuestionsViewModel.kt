@@ -25,7 +25,7 @@ class QuestionsViewModel : ViewModel() {
 
     fun createQuestions(questionSet: List<WordEntity>) {
         val list = ArrayList<Question>()
-        for (i in questionSet) {
+        for (i in questionSet.shuffled()) {
             val tempList = fullList.filter { it != i }
             val meaning = i.meanings.random().definition
             val answerList = ArrayList<String>()
@@ -40,7 +40,7 @@ class QuestionsViewModel : ViewModel() {
             }
             list.add(Question(question = meaning, answers = answerList.shuffled(), truth = i.word))
         }
-        questionList = list
+        questionList = list.shuffled()
 
     }
 

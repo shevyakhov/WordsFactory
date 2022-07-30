@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,9 +71,10 @@ class ResultFragment : Fragment() {
         remoteViews.setTextViewText(R.id.appwidget_text_remember_stats, rememberWordsText)
         remoteViews.setTextViewText(R.id.appwidget_text_my_dictionary_stats, dictionaryWordsText)
 
-        val appWidget = context?.let { ComponentName(it, StatsWidget::class.java) }
+        val appWidget = ComponentName(requireContext(), StatsWidget::class.java)
         val appWidgetManager = AppWidgetManager.getInstance(context)
         appWidgetManager.updateAppWidget(appWidget, remoteViews)
+        Log.e("done", "done")
     }
 
     override fun onDestroyView() {

@@ -2,6 +2,7 @@ package com.example.wordsfactory.ui.navigation_fragments.training.questions
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,7 @@ class QuestionsFragment : Fragment() {
             findNavController().navigate(R.id.action_questionsFragment_to_trainingFragment)
         }
         val fullList: List<WordEntity> = requireArguments().get(WORDS) as List<WordEntity>
+
         val questionSet = fullList.sortedBy { it.learningRate }.take(10).shuffled()
         createQuiz(fullList, questionSet)
         startQuestion(questionNumber)
@@ -94,6 +96,7 @@ class QuestionsFragment : Fragment() {
             startResultFragment()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setViewsByQuestion(questionNumber: Int, maximum: Int, question: Question) {
         with(binding) {
             counter.text = "${questionNumber}/${maximum}"
