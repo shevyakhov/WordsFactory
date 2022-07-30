@@ -54,10 +54,8 @@ class QuestionsViewModel : ViewModel() {
             return notLearned
         } else {
             set.addAll(notLearned)
-            for (i in 1..10 - set.size) {
-                set.add(learned[i - 1])
-            }
-            return set
+            set.addAll(learned)
+            return set.take(10)
         }
     }
 
