@@ -5,6 +5,6 @@
     android:initialLayout="@layout/stats_widget"
     android:minWidth="150dp"
     android:minHeight="70dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/preview"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen" />
