@@ -31,8 +31,6 @@ class DictionaryFragment : Fragment() {
     private val adapter = WordAdapter()
 
 
-    // TODO: update shared prefs when word added
-    // TODO: support all words parsing from json
     private lateinit var appViewModel: AppViewModel
     private lateinit var dictionaryViewModel: DictionaryViewModel
     override fun onCreateView(
