@@ -1,11 +1,16 @@
 package com.example.wordsfactory.ui.navigation_fragments.dictionary
 
 import android.app.Application
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Context
+import android.widget.RemoteViews
 import androidx.lifecycle.AndroidViewModel
 import com.example.wordsfactory.R
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.database.WordResponse
 import com.example.wordsfactory.ui.navigation_fragments.dictionary.adapter.WordItem
+import com.example.wordsfactory.widget.StatsWidget
 
 class DictionaryViewModel(application: Application) : AndroidViewModel(application) {
     private val app = application
@@ -52,6 +57,28 @@ class DictionaryViewModel(application: Application) : AndroidViewModel(applicati
         return listing
     }
 
+    fun addToSharedPrefs(all: Int) {
+        val sharedPreferences = app.getSharedPreferences(
+            "SHARED_PREFS",
+            Context.MODE_PRIVATE
+        )
+        val editor = sharedPreferences?.edit()
+        editor?.putInt("SHARED_PREFS_ALL", all)
+        editor?.apply()
+        updateWidget(all)
+    }
+
+    private fun updateWidget(howMany: Int) {
+        val remoteViews = RemoteViews(app.packageName, R.layout.stats_widget)
+        val dictionaryWordsText = "$howMany ${app.getString(R.string.widgetWordsText)}"
+
+        remoteViews.setTextViewText(R.id.appwidget_text_my_dictionary_stats, dictionaryWordsText)
+
+        val appWidget = ComponentName(app, StatsWidget::class.java)
+        val appWidgetManager = AppWidgetManager.getInstance(app)
+        appWidgetManager.updateAppWidget(appWidget, remoteViews)
+    }
+
     fun setCurrentWordInfo(word: WordEntity) {
         currentWord.meanings = word.meanings
         currentWord.sound = word.sound
@@ -63,9 +90,11 @@ class DictionaryViewModel(application: Application) : AndroidViewModel(applicati
     fun getCurrentWordName(): String {
         return currentWord.word
     }
+
     fun getCurrentWordSound(): String {
         return currentWord.sound
     }
+
     fun getCurrentWordObject(): WordEntity {
         return currentWord
     }
