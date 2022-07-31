@@ -31,8 +31,6 @@ class DictionaryFragment : Fragment() {
     private val adapter = WordAdapter()
 
 
-    // TODO: update shared prefs when word added
-    // TODO: support all words parsing from json
     private lateinit var appViewModel: AppViewModel
     private lateinit var dictionaryViewModel: DictionaryViewModel
     override fun onCreateView(
@@ -46,8 +44,10 @@ class DictionaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        appViewModel = ViewModelProvider(this, Injection.provideFactory(requireContext()))
-            .get(AppViewModel::class.java)
+        appViewModel = ViewModelProvider(
+            this,
+            Injection.provideFactory(requireContext())
+        )[AppViewModel::class.java]
         dictionaryViewModel = ViewModelProvider(this)[DictionaryViewModel::class.java]
 
         hideAllViews()
@@ -67,6 +67,7 @@ class DictionaryFragment : Fragment() {
             val wordEntity = appViewModel.checkDbForWord(dictionaryViewModel.getCurrentWordName())
             if (wordEntity == null) {
                 appViewModel.saveToDb(dictionaryViewModel.getCurrentWordObject())
+                dictionaryViewModel.addToSharedPrefs(appViewModel.getAllWordsFromDB()?.size ?: 0)
                 Toast.makeText(context, getString(R.string.wordIsSaved), Toast.LENGTH_SHORT).show()
             } else Toast.makeText(context, getString(R.string.wordIsAlready), Toast.LENGTH_SHORT)
                 .show()
@@ -85,6 +86,7 @@ class DictionaryFragment : Fragment() {
 
         }
     }
+
 
     /*search net if word is not saved in room db*/
     private fun setSearchBar() {
@@ -124,8 +126,8 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun hideAllViews() {
-        binding.blankBack.visibility = View.VISIBLE
         with(binding) {
+            blankBack.visibility = View.VISIBLE
             partOfSpeech.visibility = View.INVISIBLE
             listener.visibility = View.INVISIBLE
             wordName.visibility = View.INVISIBLE
@@ -138,8 +140,8 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun showAllViews() {
-        binding.blankBack.visibility = View.INVISIBLE
         with(binding) {
+            blankBack.visibility = View.INVISIBLE
             partOfSpeech.visibility = View.VISIBLE
             listener.visibility = View.VISIBLE
             wordName.visibility = View.VISIBLE

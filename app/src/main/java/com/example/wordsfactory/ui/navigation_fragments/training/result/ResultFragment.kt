@@ -75,7 +75,6 @@ class ResultFragment : Fragment() {
         val appWidget = ComponentName(requireContext(), StatsWidget::class.java)
         val appWidgetManager = AppWidgetManager.getInstance(context)
         appWidgetManager.updateAppWidget(appWidget, remoteViews)
-        Log.e("done", "done")
     }
 
     private fun saveData(learned: Int, all: Int) {
