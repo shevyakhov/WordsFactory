@@ -34,14 +34,12 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginVertical="40dp"
         android:background="@drawable/main_btn"
         android:text="@string/start"
         app:backgroundTint="@null" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/timer"
-        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/startBtn"
@@ -56,10 +54,10 @@
 
             android:layout_height="200dp"
             app:indicatorSize="150dp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:trackCornerRadius="20dp"
             app:trackThickness="8dp" />
 
