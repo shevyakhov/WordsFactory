@@ -10,15 +10,17 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.wordsfactory.R
+import com.example.wordsfactory.notification.ReminderNotification.Constants.notificationId
 import java.util.*
 
 object NotificationHelper {
 
     const val dayInMilliseconds: Long = 24 * 60 * 60 * 1000
+    const val tenSecondsInMilliseconds: Long = 10000
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun setReminder(
+    fun setReminders(
         context: Context,
         title: String = context.getString(R.string.reminderTitle),
         message: String = context.getString(R.string.reminderMsg),
@@ -33,7 +35,7 @@ object NotificationHelper {
 
         val pendingIntent = PendingIntent.getBroadcast(
             context.applicationContext,
-            ReminderNotification.notificationId * multiplier, // varies from 1 to 2
+            notificationId * multiplier, // varies from 1 to 2
             intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -44,12 +46,13 @@ object NotificationHelper {
             time + (duration * multiplier),
             pendingIntent
         )
+
         //sets the timer two times far from the first one
-        // TODO: if visited the app in 2 days remake notification, othervise
         if (multiplier == 1) {
-            setReminder(context, title, message, duration, multiplier = 2)
+            setReminders(context, title, message, duration, multiplier = 2)
         }
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(context: Context) {
@@ -69,25 +72,11 @@ object NotificationHelper {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun deleteReminder(context: Context, title: String, message: String) {
-        createNotificationChannel(context)
-        val intent = Intent(context.applicationContext, ReminderNotification::class.java)
-        intent.putExtra(ReminderNotification.titleExtra, title)
-        intent.putExtra(ReminderNotification.messageExtra, message)
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            context.applicationContext,
-            ReminderNotification.notificationId,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val time = Calendar.getInstance().time.time
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            time + 10000,
-            pendingIntent
-        )
+    fun deleteReminders(context: Context) {
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(notificationId)
+        notificationManager.cancel(notificationId + 1)
     }
 
 }
