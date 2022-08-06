@@ -1,15 +1,13 @@
 package com.example.wordsfactory.ui.navigation_fragments.training.result
 
 import android.annotation.SuppressLint
-import android.appwidget.AppWidgetManager
-import android.content.ComponentName
 import android.content.Context.MODE_PRIVATE
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RemoteViews
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,7 +15,6 @@ import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentResultBinding
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.repository.Injection
-import com.example.wordsfactory.widget.StatsWidget
 
 
 @Suppress("UNCHECKED_CAST")
@@ -33,6 +30,7 @@ class ResultFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         resultViewModel = ViewModelProvider(
@@ -45,15 +43,18 @@ class ResultFragment : Fragment() {
 
         resultViewModel.updateDb(changedList)
         val stats = resultViewModel.getStatistics()
-        saveData(stats.first, stats.second)
         showTrainingResult(result)
-        updateWidget()
+        saveData(stats)
+
+        resultViewModel.updateWidget(requireContext())
+        resultViewModel.setNotification(requireContext())
 
         binding.againButton.setOnClickListener {
             findNavController().navigate(R.id.action_resultFragment_to_trainingFragment)
         }
 
     }
+
 
     @SuppressLint("SetTextI18n")
     private fun showTrainingResult(result: Pair<Int, Int>) {
@@ -62,22 +63,10 @@ class ResultFragment : Fragment() {
             getString(R.string.incorrect) + (result.second - result.first)
     }
 
-    private fun updateWidget() {
 
-        val statistics = resultViewModel.getStatistics()
-        val rememberWordsText = "${statistics.first} ${getString(R.string.widgetWordsText)}"
-        val dictionaryWordsText = "${statistics.second} ${getString(R.string.widgetWordsText)}"
-
-        val remoteViews = RemoteViews(context?.packageName, R.layout.stats_widget)
-        remoteViews.setTextViewText(R.id.appwidget_text_remember_stats, rememberWordsText)
-        remoteViews.setTextViewText(R.id.appwidget_text_my_dictionary_stats, dictionaryWordsText)
-
-        val appWidget = ComponentName(requireContext(), StatsWidget::class.java)
-        val appWidgetManager = AppWidgetManager.getInstance(context)
-        appWidgetManager.updateAppWidget(appWidget, remoteViews)
-    }
-
-    private fun saveData(learned: Int, all: Int) {
+    private fun saveData(stats: Pair<Int, Int>) {
+        val learned = stats.first
+        val all = stats.second
         val sharedPreferences = this.activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
         editor?.putInt(SHARED_PREFS_LEARNED, learned)
