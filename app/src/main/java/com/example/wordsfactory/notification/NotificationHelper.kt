@@ -45,6 +45,7 @@ object NotificationHelper {
             pendingIntent
         )
         //sets the timer two times far from the first one
+        // TODO: if visited the app in 2 days remake notification, othervise
         if (multiplier == 1) {
             setReminder(context, title, message, duration, multiplier = 2)
         }
