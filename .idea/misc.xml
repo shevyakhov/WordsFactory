@@ -7,10 +7,12 @@
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable-v24/search_bar.xml" value="0.1755" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/bottom_nav_colors.xml" value="0.1" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/circle_progress_bar.xml" value="0.1275" />
+        <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/dictionary_ic.xml" value="0.1555" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/eye.xml" value="0.1275" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/gradient.xml" value="0.1555" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/gradient_widget.xml" value="0.1555" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/ic_cool_kids_on_wheels.xml" value="0.1345" />
+        <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/ic_icon.xml" value="0.1555" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1345" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1345" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/launcher_theme.xml" value="0.1345" />
@@ -22,6 +24,8 @@
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/round.xml" value="0.1" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/round_btn.xml" value="0.1" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/shape_widget.xml" value="0.1555" />
+        <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/training_ic.xml" value="0.1555" />
+        <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/drawable/video_ic.xml" value="0.1555" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/layout/activity_main.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/layout/fragment_alert.xml" value="0.1" />
         <entry key="..\:/Users/shevy/AndroidStudioProjects/WordsFactory/app/src/main/res/layout/fragment_dictionary.xml" value="0.28846153846153844" />

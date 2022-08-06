@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context.MODE_PRIVATE
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RemoteViews
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,8 @@ import com.example.wordsfactory.R
 import com.example.wordsfactory.databinding.FragmentResultBinding
 import com.example.wordsfactory.dictionary_logic.database.WordEntity
 import com.example.wordsfactory.dictionary_logic.repository.Injection
+import com.example.wordsfactory.notification.NotificationHelper.dayInMilliseconds
+import com.example.wordsfactory.notification.NotificationHelper.setReminder
 import com.example.wordsfactory.widget.StatsWidget
 
 
@@ -33,6 +36,7 @@ class ResultFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         resultViewModel = ViewModelProvider(
@@ -49,17 +53,18 @@ class ResultFragment : Fragment() {
         showTrainingResult(result)
         updateWidget()
 
+        context?.let {
+            setReminder(
+                it,
+                title = getString(R.string.reminderTitle),
+                message = getString(R.string.reminderMsg),
+                duration = dayInMilliseconds
+            )
+        }
         binding.againButton.setOnClickListener {
             findNavController().navigate(R.id.action_resultFragment_to_trainingFragment)
         }
 
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun showTrainingResult(result: Pair<Int, Int>) {
-        binding.correctNumberText.text = getString(R.string.correct) + result.first
-        binding.incorrectNumberText.text =
-            getString(R.string.incorrect) + (result.second - result.first)
     }
 
     private fun updateWidget() {
@@ -76,6 +81,14 @@ class ResultFragment : Fragment() {
         val appWidgetManager = AppWidgetManager.getInstance(context)
         appWidgetManager.updateAppWidget(appWidget, remoteViews)
     }
+
+    @SuppressLint("SetTextI18n")
+    private fun showTrainingResult(result: Pair<Int, Int>) {
+        binding.correctNumberText.text = getString(R.string.correct) + result.first
+        binding.incorrectNumberText.text =
+            getString(R.string.incorrect) + (result.second - result.first)
+    }
+
 
     private fun saveData(learned: Int, all: Int) {
         val sharedPreferences = this.activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)

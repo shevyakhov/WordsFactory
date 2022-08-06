@@ -36,6 +36,10 @@
     <string name="AlertFragmentMainText">first</string>
     <string name="AlertFragmentSubText">second</string>
     <string name="description">description</string>
+    <string name="reminderDescription">reminder to train learned words once a day</string>
+    <string name="reminder">Training reminder</string>
+    <string name="reminderTitle">Hey champion!</string>
+    <string name="reminderMsg">Don\'t forget to learn your words</string>
     <string name="forbiddenLink1">🚫 forbidden link 🚫</string>
     <string name="forbiddenLink2">you can only navigate through Video Zone</string>
     <string name="save">Add to Dictionary</string>
