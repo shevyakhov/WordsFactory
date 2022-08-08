@@ -29,7 +29,7 @@ class ResultViewModel(private val repository: AppRepository) : ViewModel() {
             context = context,
             title = context.getString(R.string.reminderTitle),
             message = context.getString(R.string.reminderMsg),
-            duration = NotificationHelper.tenSecondsInMilliseconds
+            duration = NotificationHelper.dayInMilliseconds
 
         )
     }
